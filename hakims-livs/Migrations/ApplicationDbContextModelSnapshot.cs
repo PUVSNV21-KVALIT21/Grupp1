@@ -228,7 +228,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ShoppingCartID");
 
-                    b.ToTable("Producs");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>

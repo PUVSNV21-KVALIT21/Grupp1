@@ -13,7 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<Customer>
     }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<Product> Producs { get; set; }
+    public DbSet<Product> Products { get; set; }
     public DbSet<ShoppingCart> ShoppingCarts { get; set; }
     public DbSet<Address> Adresses { get; set; }
 

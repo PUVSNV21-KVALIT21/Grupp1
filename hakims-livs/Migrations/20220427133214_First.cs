@@ -231,7 +231,7 @@ namespace hakims_livs.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Producs",
+                name: "Products",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -248,20 +248,20 @@ namespace hakims_livs.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producs", x => x.ID);
+                    table.PrimaryKey("PK_Products", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Producs_AspNetUsers_CustomerId",
+                        name: "FK_Products_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Producs_Categories_CategoryID",
+                        name: "FK_Products_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Producs_ShoppingCarts_ShoppingCartID",
+                        name: "FK_Products_ShoppingCarts_ShoppingCartID",
                         column: x => x.ShoppingCartID,
                         principalTable: "ShoppingCarts",
                         principalColumn: "ID");
@@ -288,9 +288,9 @@ namespace hakims_livs.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderRow_Producs_ProductID",
+                        name: "FK_OrderRow_Products_ProductID",
                         column: x => x.ProductID,
-                        principalTable: "Producs",
+                        principalTable: "Products",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -353,18 +353,18 @@ namespace hakims_livs.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producs_CategoryID",
-                table: "Producs",
+                name: "IX_Products_CategoryID",
+                table: "Products",
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producs_CustomerId",
-                table: "Producs",
+                name: "IX_Products_CustomerId",
+                table: "Products",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producs_ShoppingCartID",
-                table: "Producs",
+                name: "IX_Products_ShoppingCartID",
+                table: "Products",
                 column: "ShoppingCartID");
 
             migrationBuilder.CreateIndex(
@@ -400,7 +400,7 @@ namespace hakims_livs.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Producs");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Categories");

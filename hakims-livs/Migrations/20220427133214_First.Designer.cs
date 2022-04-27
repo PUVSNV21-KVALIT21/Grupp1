@@ -11,7 +11,7 @@ using hakims_livs.Data;
 namespace hakims_livs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220427123156_First")]
+    [Migration("20220427133214_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,7 +230,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ShoppingCartID");
 
-                    b.ToTable("Producs");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>
