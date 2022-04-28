@@ -7,4 +7,11 @@ public class OrderRow
     public Order Order { get; set; }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
+
+    public OrderRow()
+    {
+        Product = new Product();
+        Order = new Order();
+
+    }
 }

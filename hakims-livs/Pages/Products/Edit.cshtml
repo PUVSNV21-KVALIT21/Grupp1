@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Product.ID" />
             <div class="form-group">
@@ -24,10 +24,22 @@
                 <input asp-for="Product.Description" class="form-control" />
                 <span asp-validation-for="Product.Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Product.Image" class="control-label"></label>
-                <input asp-for="Product.Image" class="form-control" />
-                <span asp-validation-for="Product.Image" class="text-danger"></span>
+            <div>
+                <label asp-for="Product.Image" style="width: 100%;"></label>
+                @if (Model.Product.Image != null)
+                {
+                    <img id="productImage" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Product.Image))" alt="Product Image">
+                }
+                else
+                {
+                    <img id="productImage" style="width:350px;height:350px; object-fit:cover" src="~/images/ProductPlaceholder.svg" alt="">
+                }
+                <input type="file"
+                       accept=".png,.jpg,.jpeg,.gif,.tif"
+                       asp-for="Input.Image"
+                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                       onchange="document.getElementById('productImage').src = window.URL.createObjectURL(this.files[0])" />
+                <span asp-validation-for="Input.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Price" class="control-label"></label>
