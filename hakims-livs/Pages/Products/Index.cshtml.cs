@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
 
-namespace hakims_livs.Pages
+namespace hakims_livs.Pages.Products
 {
     public class IndexModel : PageModel
     {
@@ -28,4 +28,3 @@ namespace hakims_livs.Pages
         }
     }
 }
-

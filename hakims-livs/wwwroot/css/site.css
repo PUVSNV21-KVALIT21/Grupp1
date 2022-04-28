@@ -1,4 +1,8 @@
-﻿html {
+﻿:root {
+  --color-grey: #f6f6f6;
+}
+
+html {
   font-size: 14px;
 }
 
@@ -15,4 +19,64 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: var(--color-grey)
+}
+
+.card-product{
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 0 0 32px 0px rgba(203, 203, 203, 0.35);
+  background-color: white;
+  width: 250px;
+}
+
+.card-product-footer{
+}
+
+.card-product-description{
+  height: 120px;
+}
+
+.btn-product {
+  width: 100%;
+}
+.table{
+
+  background-color: white;
+}
+
+.card-img-product{
+  background-color: var(--color-grey);
+  height: 200px;
+  cursor: pointer;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 32px 32px;
+  padding: 32px;
+}
+
+@media screen and (max-width: 600px) {
+  .card-img-product {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-gap: 16px 16px;
+    padding: 16px;
+  }
+}
+
+.loading {
+  box-shadow: none;
+}
+
+div.single-result div.image {
+
+}
+
+.title {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  text-align: center;
 }
