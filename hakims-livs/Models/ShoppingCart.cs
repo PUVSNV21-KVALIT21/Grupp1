@@ -8,6 +8,7 @@
 
         public ShoppingCart()
         {
+            Customer = new Customer();
             Products = new List<Product>();
         }
     }
