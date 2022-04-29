@@ -50,7 +50,7 @@ using (var scope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope(
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
 
     app.UseMigrationsEndPoint();
