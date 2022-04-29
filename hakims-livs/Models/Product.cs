@@ -18,14 +18,14 @@ namespace hakims_livs.Models
         public string Description { get; set; }
         [Display(Name="Bild")]
         [MaxLength(255)]
-        public string? Image { get; set; }
+        public byte[]? Image { get; set; }
         [Display(Name="Pris")]
         public decimal Price { get; set; }
         [Display(Name="Lagersaldo")]
         public int Stock { get; set; }
         [Display(Name="Volym")]
         public int Volume { get; set; }
-        public Category? Category { get; set; }
+        public Category Category { get; set; }
         [Display(Name="Produkt inlagd")]
         public DateTime CreatedDateTime { get; set; }
         [Column(TypeName = "nvarchar(5)")]
@@ -34,6 +34,9 @@ namespace hakims_livs.Models
 
         public Product()
         {
+            Name = "";
+            Description = "";
+            Category = new Category();
             CreatedDateTime = DateTime.Now;
         }
 

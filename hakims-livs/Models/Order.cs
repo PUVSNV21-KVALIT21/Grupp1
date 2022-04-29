@@ -10,6 +10,7 @@
         
         public Order()
         {
+            Customer = new Customer();
         OrderRows = new List<OrderRow>();
         }
 
