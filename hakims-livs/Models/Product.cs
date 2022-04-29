@@ -20,6 +20,7 @@ namespace hakims_livs.Models
         [MaxLength(255)]
         public byte[]? Image { get; set; }
         [Display(Name="Pris")]
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
         [Display(Name="Lagersaldo")]
         public int Stock { get; set; }
