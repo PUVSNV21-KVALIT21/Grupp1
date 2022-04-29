@@ -1,0 +1,78 @@
+@page
+@using hakims_livs.Models
+@model hakims_livs.Pages.Products.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="product-form" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Product.Name" class="control-label"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Description" class="control-label"></label>
+                <input asp-for="Product.Description" class="form-control" />
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+            <div>
+                            <label asp-for="Product.Image" style="width: 100%;"></label>
+                            @if (Model.Product != null)
+                            {
+                                <img id="productImage" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))">
+                            }
+                            else
+                            {
+                                <img id="productImage" style="width:350px;height:350px; object-fit:cover" src="~/images/CarPlaceholder.jpg">
+                            }
+                            <input type="file"
+                                   accept=".png,.jpg,.jpeg,.gif,.tif"
+                                   asp-for="Product.Image"
+                                   style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                                   onchange="document.getElementById('productImage').src = window.URL.createObjectURL(this.files[0])" />
+                            <span asp-validation-for="Product.Image" class="text-danger"></span>
+                        </div>
+            
+            <div class="form-group">
+                <label asp-for="Product.Price" class="control-label"></label>
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Stock" class="control-label"></label>
+                <input asp-for="Product.Stock" class="form-control" />
+                <span asp-validation-for="Product.Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Volume" class="control-label"></label>
+                <input asp-for="Product.Volume" class="form-control" />
+                <span asp-validation-for="Product.Volume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Unit"></label>
+                <select class="form-control" asp-for="Product.Unit"
+                        asp-items="Html.GetEnumSelectList<Unit>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="Product.Unit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,34 @@
+﻿@page
+@model hakims_livs.Pages.IndexModel
+@{
+    ViewData["Title"] = "Hakim´s Livs";
+}
+
+<h1 class="title">Välkommen till Hakim´s Livs</h1>
+<div class="product-grid">
+
+    @foreach (var item in Model.Product)
+    {
+        <div class="card card-product single-result">
+            @if (item.Image != null)
+                        {
+                            <img class="card-img-product" src="data:image/*;base64,@(Convert.ToBase64String(item.Image))" alt="Product Image">
+                        }
+                        else
+                        {
+                            <img class="card-img-product" src="~/images/ProductPlaceholder.svg">
+                        }
+            
+            <div class="card-body card-product-description">
+                <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h4>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+            </div>
+            <div class="card-product-footer">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Price)kr</h5>
+
+                <a href="#" class="btn btn-primary btn-product">Köp</a>
+            </div>
+        
+            </div>
+    }
+</div>
