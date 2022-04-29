@@ -5,27 +5,22 @@ using hakims_livs.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlite(connectionString));
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-
 
 var cloudConnectionString = Environment.GetEnvironmentVariable("DB_CONNECTIONSTRING");
 var localConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(localConnectionString));
-}
-else
+if (cloudConnectionString != null)
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(cloudConnectionString));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-    
+
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlite(localConnectionString));
 }
 
 
