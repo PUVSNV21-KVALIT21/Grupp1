@@ -36,13 +36,18 @@ else
 builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
     //.AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<AccessControl>();
 
 var app = builder.Build();
 
-
+using (var scope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope())
+{
+    scope?.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
