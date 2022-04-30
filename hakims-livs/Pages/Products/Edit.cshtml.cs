@@ -56,11 +56,13 @@ namespace hakims_livs.Pages.Products
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            if (Request.Form.Files.Count > 0)
+            var imageChanged = Request.Form.Files.Count > 0;
+            if (imageChanged)
             {
                 IFormFile file = Request.Form.Files.FirstOrDefault();
 
@@ -70,6 +72,7 @@ namespace hakims_livs.Pages.Products
             }
 
             _context.Attach(Product).State = EntityState.Modified;
+            if (!imageChanged) _context.Entry(Product).Property(x => x.Image).IsModified=false; 
 
             try
             {
