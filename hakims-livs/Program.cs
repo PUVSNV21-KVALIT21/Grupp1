@@ -7,26 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var cloudConnectionString = Environment.GetEnvironmentVariable("DB_CONNECTIONSTRING");
-var localConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 if (cloudConnectionString != null)
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(cloudConnectionString));
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 }
 else
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(localConnectionString));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
-
-
-
-
-
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
     //.AddRoles<IdentityRole>()
@@ -38,11 +30,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<AccessControl>();
 
 var app = builder.Build();
-
-using (var scope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope())
-{
-    scope?.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
