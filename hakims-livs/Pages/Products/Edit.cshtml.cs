@@ -65,10 +65,17 @@ namespace hakims_livs.Pages.Products
             if (imageChanged)
             {
                 IFormFile file = Request.Form.Files.FirstOrDefault();
-
                 var name = Product.Name ?? "";
-                var path = await FileStorage.Store(file, name);
-                Product.Image = path;
+                if (file != null)
+                {
+                    var path = await FileStorage.Store(file, name);
+                    Product.Image = path;
+                    var previousImagePath = await _context.Products.Where(p => p.ID == Product.ID).Select(p => p.Image).FirstOrDefaultAsync();
+                    if (previousImagePath != null) FileStorage.Delete(previousImagePath);
+                }
+
+
+                    
             }
 
             _context.Attach(Product).State = EntityState.Modified;
