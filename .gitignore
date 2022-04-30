@@ -11,8 +11,8 @@
 *.sln.docstates
 
 # Local uploads
-**/wwwroot/uploads
-**/wwwroot/images
+hakims-livs/wwwroot/images/
+hakims-livs/wwwroot/uploads/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
