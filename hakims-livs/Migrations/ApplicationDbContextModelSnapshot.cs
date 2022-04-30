@@ -213,9 +213,9 @@ namespace hakims_livs.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("Image")
                         .HasMaxLength(255)
-                        .HasColumnType("varbinary(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
