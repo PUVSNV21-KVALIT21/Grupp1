@@ -1,4 +1,5 @@
 @page
+@using hakims_livs.Models
 @model hakims_livs.Pages.Products.EditModel
 
 @{
@@ -28,7 +29,7 @@
                 <label asp-for="Product.Image" style="width: 100%;"></label>
                 @if (Model.Product.Image != null)
                 {
-                    <img id="productImage" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Product.Image))" alt="Product Image">
+                    <img id="productImage" style="width:350px;height:350px; object-fit:cover" src="~/images/@Model.Product.Image" alt="Product Image">
                 }
                 else
                 {
@@ -37,7 +38,7 @@
                 <input type="file"
                        accept=".png,.jpg,.jpeg,.gif,.tif"
                        asp-for="Input.Image"
-                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                       class="form-control"
                        onchange="document.getElementById('productImage').src = window.URL.createObjectURL(this.files[0])" />
                 <span asp-validation-for="Input.Image" class="text-danger"></span>
             </div>
@@ -57,13 +58,11 @@
                 <span asp-validation-for="Product.Volume" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.CreatedDateTime" class="control-label"></label>
-                <input asp-for="Product.CreatedDateTime" class="form-control" />
-                <span asp-validation-for="Product.CreatedDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Unit" class="control-label"></label>
-                <select asp-for="Product.Unit" class="form-control"></select>
+                <label asp-for="Product.Unit"></label>
+                <select class="form-control" asp-for="Product.Unit"
+                        asp-items="Html.GetEnumSelectList<Unit>()">
+                    <option>Select type ...</option>
+                </select>
                 <span asp-validation-for="Product.Unit" class="text-danger"></span>
             </div>
             <div class="form-group">
