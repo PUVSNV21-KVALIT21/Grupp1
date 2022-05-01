@@ -68,7 +68,7 @@ namespace hakims_livs.Pages.Products
                 var name = Product.Name ?? "";
                 if (file != null)
                 {
-                    var path = await FileStorage.Store(file, name);
+                    var path = await FileStorage.StoreFileAsync(file, name);
                     Product.Image = path;
                     var previousImagePath = await _context.Products.Where(p => p.ID == Product.ID).Select(p => p.Image).FirstOrDefaultAsync();
                     if (previousImagePath != null) FileStorage.Delete(previousImagePath);

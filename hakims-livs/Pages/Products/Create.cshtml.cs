@@ -55,7 +55,7 @@ namespace hakims_livs.Pages.Products
                 IFormFile file = Request.Form.Files.FirstOrDefault();
 
                 var name = Product.Name ?? "";
-                var path = await FileStorage.Store(file, name);
+                var path = await FileStorage.StoreFileAsync(file, name);
                 Product.Image = path;
             }
 
