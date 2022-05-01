@@ -24,7 +24,7 @@ public static class FileStorage
             var wwwRootPath = HostEnvironment.GetWebRootPath();
             var extension = Path.GetExtension(file.FileName);
             fileName = CreateFileName(name, extension);
-            var folder = GetFolderName(extension);
+            var folder = GetFolderName(fileName);
             var path = Path.Combine(wwwRootPath + folder, fileName);
             await using var fileStream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(fileStream);
@@ -46,19 +46,16 @@ public static class FileStorage
 
     public static void Delete(string fileName)
     {
-        var extension = Path.GetExtension(fileName);
-        var folder = GetFolderName(extension);
+        var folder = GetFolderName(fileName);
         var wwwRootPath = HostEnvironment.GetWebRootPath();
         var path = Path.Combine(wwwRootPath + folder + fileName);
 
-        if (File.Exists(path))
-        {
-            File.Delete(path);
-        }
+        if (File.Exists(path)) File.Delete(path);
     }
     
-    private static string GetFolderName(string extension)
+    private static string GetFolderName(string fileName)
     {
+        var extension = Path.GetExtension(fileName);
         return extension.ToLower() is ".png" or ".jpg" or ".jpeg" or ".gif" or ".tif" ? "/images/" : "/uploads/";
     }
     
