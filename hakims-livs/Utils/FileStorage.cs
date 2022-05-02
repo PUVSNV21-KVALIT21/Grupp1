@@ -26,9 +26,11 @@ public static class FileStorage
             fileName = CreateFileName(name, extension);
             var folder = GetFolderName(fileName);
             var path = Path.Combine(wwwRootPath + folder, fileName);
+            if (!Directory.Exists(wwwRootPath + folder)) Directory.CreateDirectory(wwwRootPath + folder);
             await using var fileStream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(fileStream);
         }
+        
         catch
         {
             throw new Exception("Error trying to store the file");

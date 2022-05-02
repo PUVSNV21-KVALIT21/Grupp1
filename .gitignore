@@ -13,6 +13,7 @@
 # Local uploads
 hakims-livs/wwwroot/images/
 hakims-livs/wwwroot/uploads/
+hakims-livs/appsettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
