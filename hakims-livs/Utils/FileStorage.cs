@@ -3,16 +3,8 @@ using System.Text.RegularExpressions;
 
 namespace hakims_livs.Utils;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 
-internal static class HostEnvironment{
-    public static string? GetWebRootPath()
-    {
-        var accessor = new HttpContextAccessor();
-        var webHostEnvironment = accessor.HttpContext?.RequestServices.GetRequiredService<IWebHostEnvironment>();
-        return webHostEnvironment?.WebRootPath;
-    }
-}
+
 public static class FileStorage
 {
     public static async Task<string> StoreFileAsync(IFormFile file, string name)
