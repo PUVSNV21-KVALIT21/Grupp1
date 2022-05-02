@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace hakims_livs.Migrations
 {
-    public partial class first : Migration
+    public partial class productmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -212,6 +212,45 @@ namespace hakims_livs.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SalesPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    RegularPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    ComparisonPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    Volume = table.Column<int>(type: "int", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(5)", nullable: false),
+                    IsEco = table.Column<bool>(type: "bit", nullable: false),
+                    IsVegan = table.Column<bool>(type: "bit", nullable: false),
+                    IsGluten = table.Column<bool>(type: "bit", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(30)", nullable: true),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Products_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ShoppingCarts",
                 columns: table => new
                 {
@@ -227,44 +266,6 @@ namespace hakims_livs.Migrations
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Image = table.Column<byte[]>(type: "varbinary(255)", maxLength: 255, nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
-                    Volume = table.Column<int>(type: "int", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(5)", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ShoppingCartID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Products_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryID",
-                        column: x => x.CategoryID,
-                        principalTable: "Categories",
-                        principalColumn: "ID");
-                    table.ForeignKey(
-                        name: "FK_Products_ShoppingCarts_ShoppingCartID",
-                        column: x => x.ShoppingCartID,
-                        principalTable: "ShoppingCarts",
-                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -292,6 +293,45 @@ namespace hakims_livs.Migrations
                         principalTable: "Products",
                         principalColumn: "ID");
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ProductShoppingCart",
+                columns: table => new
+                {
+                    ProductsID = table.Column<int>(type: "int", nullable: false),
+                    ShoppingCartsID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductShoppingCart", x => new { x.ProductsID, x.ShoppingCartsID });
+                    table.ForeignKey(
+                        name: "FK_ProductShoppingCart_Products_ProductsID",
+                        column: x => x.ProductsID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductShoppingCart_ShoppingCarts_ShoppingCartsID",
+                        column: x => x.ShoppingCartsID,
+                        principalTable: "ShoppingCarts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "a081ff30-8dbe-4c90-ab3d-9cca3918d638", "admin", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "AddressID", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "09946153-8929-48cd-9f50-72f6abec599e", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEJCmfhj9e7OrzbNYoJcXroDi22RyjpV2SfJUh0BEvzu/F6XkBegwpyUBXoTYa9OrKQ==", null, false, "", false, "admin@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "a18be9c0-aa65-4af8-bd17-00bd9344e575" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -363,9 +403,9 @@ namespace hakims_livs.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ShoppingCartID",
-                table: "Products",
-                column: "ShoppingCartID");
+                name: "IX_ProductShoppingCart_ShoppingCartsID",
+                table: "ProductShoppingCart",
+                column: "ShoppingCartsID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCarts_CustomerId",
@@ -394,6 +434,9 @@ namespace hakims_livs.Migrations
                 name: "OrderRow");
 
             migrationBuilder.DropTable(
+                name: "ProductShoppingCart");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -403,10 +446,10 @@ namespace hakims_livs.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -12,8 +12,8 @@ using hakims_livs.Data;
 namespace hakims_livs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220502074704_AdminFeature")]
-    partial class AdminFeature
+    [Migration("20220502123314_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,13 +145,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fdbff827-2b13-43eb-9eda-433a3de15810",
+                            ConcurrencyStamp = "132a12df-4ee0-4b1c-8021-607729938865",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA9ISpq1MOx94gMFLPR60J5ModFYnoEYNWB85blI8dy+06+7ODMlE0/LVdEkbEa57Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPi5mNrXrSSrgumV16MVRxeuJ3PfDBaKLTaXVJEt9XjoqdpXYaisU5yNZ7hpMqEgHw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -220,8 +220,14 @@ namespace hakims_livs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<int?>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("ComparisonPrice")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
@@ -233,19 +239,31 @@ namespace hakims_livs.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Image")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsEco")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsGluten")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVegan")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("RegularPrice")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<int?>("ShoppingCartID")
-                        .HasColumnType("int");
+                    b.Property<decimal>("SalesPrice")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -262,8 +280,6 @@ namespace hakims_livs.Migrations
                     b.HasIndex("CategoryID");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ShoppingCartID");
 
                     b.ToTable("Products");
                 });
@@ -316,7 +332,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "21574576-c2f0-4a82-a7eb-c3068188e41c",
+                            ConcurrencyStamp = "ec7d6f80-1b36-4eb4-8d0e-48239c22dc8a",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
@@ -439,6 +455,21 @@ namespace hakims_livs.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ProductShoppingCart", b =>
+                {
+                    b.Property<int>("ProductsID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsID", "ShoppingCartsID");
+
+                    b.HasIndex("ShoppingCartsID");
+
+                    b.ToTable("ProductShoppingCart");
+                });
+
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
                 {
                     b.HasOne("hakims_livs.Models.Address", "Address")
@@ -481,10 +512,6 @@ namespace hakims_livs.Migrations
                     b.HasOne("hakims_livs.Models.Customer", null)
                         .WithMany("FavouriteProducts")
                         .HasForeignKey("CustomerId");
-
-                    b.HasOne("hakims_livs.Models.ShoppingCart", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ShoppingCartID");
 
                     b.Navigation("Category");
                 });
@@ -549,6 +576,21 @@ namespace hakims_livs.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProductShoppingCart", b =>
+                {
+                    b.HasOne("hakims_livs.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hakims_livs.Models.ShoppingCart", null)
+                        .WithMany()
+                        .HasForeignKey("ShoppingCartsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
                 {
                     b.Navigation("FavouriteProducts");
@@ -557,11 +599,6 @@ namespace hakims_livs.Migrations
             modelBuilder.Entity("hakims_livs.Models.Order", b =>
                 {
                     b.Navigation("OrderRows");
-                });
-
-            modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
