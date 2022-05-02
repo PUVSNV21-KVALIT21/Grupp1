@@ -23,4 +23,22 @@
     <Folder Include="wwwroot\uploads" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\assets\apple.jpg" />
+    <None Include="wwwroot\assets\aubergine.jpg" />
+    <None Include="wwwroot\assets\avocado.jpg" />
+    <None Include="wwwroot\assets\bananas.jpg" />
+    <None Include="wwwroot\assets\bellpepper.jpg" />
+    <None Include="wwwroot\assets\cherry.jpg" />
+    <None Include="wwwroot\assets\clementine.jpg" />
+    <None Include="wwwroot\assets\fig.jpg" />
+    <None Include="wwwroot\assets\ginger.jpg" />
+    <None Include="wwwroot\assets\grapes.jpg" />
+    <None Include="wwwroot\assets\lemon.jpg" />
+    <None Include="wwwroot\assets\onion.jpg" />
+    <None Include="wwwroot\assets\pear.jpg" />
+    <None Include="wwwroot\assets\pineapple.jpg" />
+    <None Include="wwwroot\assets\strawberry.jpg" />
+  </ItemGroup>
+
 </Project>
