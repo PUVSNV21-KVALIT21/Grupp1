@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
 using hakims_livs.Utils;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hakims_livs.Pages.Products
 {
+    [Authorize(Roles = "admin")]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;

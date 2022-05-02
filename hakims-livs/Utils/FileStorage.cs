@@ -3,16 +3,8 @@ using System.Text.RegularExpressions;
 
 namespace hakims_livs.Utils;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 
-internal static class HostEnvironment{
-    public static string? GetWebRootPath()
-    {
-        var accessor = new HttpContextAccessor();
-        var webHostEnvironment = accessor.HttpContext?.RequestServices.GetRequiredService<IWebHostEnvironment>();
-        return webHostEnvironment?.WebRootPath;
-    }
-}
+
 public static class FileStorage
 {
     public static async Task<string> StoreFileAsync(IFormFile file, string name)
@@ -26,9 +18,11 @@ public static class FileStorage
             fileName = CreateFileName(name, extension);
             var folder = GetFolderName(fileName);
             var path = Path.Combine(wwwRootPath + folder, fileName);
+            if (!Directory.Exists(wwwRootPath + folder)) Directory.CreateDirectory(wwwRootPath + folder);
             await using var fileStream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(fileStream);
         }
+        
         catch
         {
             throw new Exception("Error trying to store the file");
