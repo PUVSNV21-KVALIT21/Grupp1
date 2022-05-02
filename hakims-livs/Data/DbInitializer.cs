@@ -16,6 +16,8 @@ public class DbInitializer
             // Copy example data images to wwwRoot folder
             var destinationDir = environment.WebRootPath + "/images/";
             var sourceDir = "./Images";
+
+            ClearDirectory(destinationDir);
             CopyDirectory(sourceDir, destinationDir);
 
             // Seed data
@@ -142,16 +144,29 @@ public class DbInitializer
     private static void CopyDirectory(string sourceDir, string destinationDir)
     {
         var dir = new DirectoryInfo(sourceDir);
+
         if (!dir.Exists)
             throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
 
 
         if (!Directory.Exists(destinationDir)) Directory.CreateDirectory(destinationDir);
+        
+
+
 
         foreach (FileInfo file in dir.GetFiles())
         {
             string targetFilePath = Path.Combine(destinationDir, file.Name);
             file.CopyTo(targetFilePath);
+        }
+    }
+
+    private static void ClearDirectory(string destinationDir)
+    {
+        var destDir = new DirectoryInfo(destinationDir);
+        foreach (FileInfo file in destDir.GetFiles())
+        {
+            file.Delete();
         }
     }
 }
