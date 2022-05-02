@@ -18,7 +18,7 @@ namespace hakims_livs.Models
         public string? Description { get; set; }
         [Display(Name="Bild")]
         [MaxLength(255)]
-        public byte[]? Image { get; set; }
+        public string? Image { get; set; }
         [Display(Name="Pris")]
         [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }

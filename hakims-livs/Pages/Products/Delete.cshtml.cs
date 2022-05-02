@@ -8,14 +8,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
+using hakims_livs.Utils;
 
 namespace hakims_livs.Pages.Products
 {
     public class DeleteModel : PageModel
     {
-        private readonly hakims_livs.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(hakims_livs.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -48,11 +49,10 @@ namespace hakims_livs.Pages.Products
 
             Product = await _context.Products.FindAsync(id);
 
-            if (Product != null)
-            {
-                _context.Products.Remove(Product);
-                await _context.SaveChangesAsync();
-            }
+            if (Product == null) return RedirectToPage("./Index");
+            _context.Products.Remove(Product);
+            if (Product.Image != null) FileStorage.Delete(Product.Image);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

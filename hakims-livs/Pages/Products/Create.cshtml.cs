@@ -9,14 +9,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using hakims_livs.Data;
 using hakims_livs.Models;
+using hakims_livs.Utils;
 
 namespace hakims_livs.Pages.Products
 {
     public class CreateModel : PageModel
     {
-        private readonly hakims_livs.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CreateModel(hakims_livs.Data.ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -51,11 +52,11 @@ namespace hakims_livs.Pages.Products
             
             if (Request.Form.Files.Count > 0)
             {
-                var file = Request.Form.Files.FirstOrDefault();
+                IFormFile file = Request.Form.Files.FirstOrDefault();
 
-                await using var dataStream = new MemoryStream();
-                if (file != null) await file.CopyToAsync(dataStream);
-                Product.Image = dataStream.ToArray();
+                var name = Product.Name ?? "";
+                var path = await FileStorage.StoreFileAsync(file, name);
+                Product.Image = path;
             }
 
             _context.Products.Add(Product);
