@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using hakims_livs.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +28,11 @@ builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireC
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
 builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<AccessControl>();
+// Added service for sending confirmation email
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
