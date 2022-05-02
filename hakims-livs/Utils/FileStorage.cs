@@ -30,6 +30,7 @@ public static class FileStorage
             await using var fileStream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(fileStream);
         }
+        
         catch
         {
             throw new Exception("Error trying to store the file");
