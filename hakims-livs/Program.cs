@@ -5,44 +5,31 @@ using hakims_livs.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlite(connectionString));
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-
 
 var cloudConnectionString = Environment.GetEnvironmentVariable("DB_CONNECTIONSTRING");
-var localConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+if (cloudConnectionString != null)
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(localConnectionString));
+        options.UseSqlServer(cloudConnectionString));
 }
 else
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(cloudConnectionString));
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-    
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
-
-
-
-
-
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
     //.AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<AccessControl>();
 
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

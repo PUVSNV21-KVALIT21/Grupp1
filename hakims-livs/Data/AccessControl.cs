@@ -9,7 +9,7 @@ namespace hakims_livs.Data
 
         public AccessControl(UserManager<Customer> userManager, IHttpContextAccessor httpContextAccessor)
         {
-            LoggedInUserID = userManager.GetUserId(httpContextAccessor.HttpContext.User);
+            LoggedInUserID = userManager.GetUserId(httpContextAccessor.HttpContext?.User);
         }
 
         public bool UserCanAccess(Customer customer)

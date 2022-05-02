@@ -10,6 +10,10 @@
 *.userosscache
 *.sln.docstates
 
+# Local uploads
+hakims-livs/wwwroot/images/
+hakims-livs/wwwroot/uploads/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
+using hakims_livs.Utils;
 
 namespace hakims_livs.Pages.Products
 {
@@ -55,20 +56,30 @@ namespace hakims_livs.Pages.Products
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            if (Request.Form.Files.Count > 0)
+            var imageChanged = Request.Form.Files.Count > 0;
+            if (imageChanged)
             {
-                var file = Request.Form.Files.FirstOrDefault();
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                var name = Product.Name ?? "";
+                if (file != null)
+                {
+                    var path = await FileStorage.StoreFileAsync(file, name);
+                    Product.Image = path;
+                    var previousImagePath = await _context.Products.Where(p => p.ID == Product.ID).Select(p => p.Image).FirstOrDefaultAsync();
+                    if (previousImagePath != null) FileStorage.Delete(previousImagePath);
+                }
 
-                await using var dataStream = new MemoryStream();
-                if (file != null) await file.CopyToAsync(dataStream);
-                Product.Image = dataStream.ToArray();
+
+                    
             }
 
             _context.Attach(Product).State = EntityState.Modified;
+            if (!imageChanged) _context.Entry(Product).Property(x => x.Image).IsModified=false; 
 
             try
             {
