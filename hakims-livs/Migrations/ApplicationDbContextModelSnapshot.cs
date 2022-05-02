@@ -137,6 +137,24 @@ namespace hakims_livs.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "09946153-8929-48cd-9f50-72f6abec599e",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@gmail.com",
+                            NormalizedUserName = "admin@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJCmfhj9e7OrzbNYoJcXroDi22RyjpV2SfJUh0BEvzu/F6XkBegwpyUBXoTYa9OrKQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Order", b =>
@@ -200,8 +218,14 @@ namespace hakims_livs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<int?>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("ComparisonPrice")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
@@ -213,19 +237,31 @@ namespace hakims_livs.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Image")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsEco")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsGluten")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVegan")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("RegularPrice")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<int?>("ShoppingCartID")
-                        .HasColumnType("int");
+                    b.Property<decimal>("SalesPrice")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -242,8 +278,6 @@ namespace hakims_livs.Migrations
                     b.HasIndex("CategoryID");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ShoppingCartID");
 
                     b.ToTable("Products");
                 });
@@ -291,6 +325,15 @@ namespace hakims_livs.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
+                            ConcurrencyStamp = "a081ff30-8dbe-4c90-ab3d-9cca3918d638",
+                            Name = "admin",
+                            NormalizedName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -380,6 +423,13 @@ namespace hakims_livs.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            RoleId = "ad376a8f-9eab-4bb9-9fca-30b01540f445"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -401,6 +451,21 @@ namespace hakims_livs.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ProductShoppingCart", b =>
+                {
+                    b.Property<int>("ProductsID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsID", "ShoppingCartsID");
+
+                    b.HasIndex("ShoppingCartsID");
+
+                    b.ToTable("ProductShoppingCart");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
@@ -445,10 +510,6 @@ namespace hakims_livs.Migrations
                     b.HasOne("hakims_livs.Models.Customer", null)
                         .WithMany("FavouriteProducts")
                         .HasForeignKey("CustomerId");
-
-                    b.HasOne("hakims_livs.Models.ShoppingCart", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ShoppingCartID");
 
                     b.Navigation("Category");
                 });
@@ -513,6 +574,21 @@ namespace hakims_livs.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProductShoppingCart", b =>
+                {
+                    b.HasOne("hakims_livs.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hakims_livs.Models.ShoppingCart", null)
+                        .WithMany()
+                        .HasForeignKey("ShoppingCartsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
                 {
                     b.Navigation("FavouriteProducts");
@@ -521,11 +597,6 @@ namespace hakims_livs.Migrations
             modelBuilder.Entity("hakims_livs.Models.Order", b =>
                 {
                     b.Navigation("OrderRows");
-                });
-
-            modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,9 +19,15 @@ namespace hakims_livs.Models
         [Display(Name="Bild")]
         [MaxLength(255)]
         public string? Image { get; set; }
-        [Display(Name="Pris")]
+        [Display(Name="Styckpris")]
         [Column(TypeName = "decimal(18,4)")]
-        public decimal Price { get; set; }
+        public decimal SalesPrice { get; set; }
+        [Display(Name="Normalpris")]
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal RegularPrice { get; set; }
+        [Display(Name = "Jämförelsepris")]
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal? ComparisonPrice { get; set; }
         [Display(Name="Lagersaldo")]
         public int Stock { get; set; }
         [Display(Name="Volym")]
@@ -32,6 +38,15 @@ namespace hakims_livs.Models
         [Column(TypeName = "nvarchar(5)")]
         [Display(Name="Enhet")]
         public Unit Unit { get; set; }
+        public List<ShoppingCart>? ShoppingCarts { get; set; }
+        public bool IsEco { get; set; }
+        public bool IsVegan { get; set; }
+        public bool IsGluten { get; set; }
+        [Display(Name = "Bäst före")]
+        public DateTime ExpiryDate { get; set; }
+        [Column(TypeName = "nvarchar(30)")]
+        [Display(Name = "Varumärke")]
+        public string? Brand { get; set; }
 
         public Product()
         {
