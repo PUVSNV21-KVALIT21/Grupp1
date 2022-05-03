@@ -29,8 +29,8 @@ public class DbInitializer
                     Image = "clementine.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 15, 
-                    CreatedDateTime= DateTime.Parse("2019-11-12")
-                    
+                    CreatedDateTime= DateTime.Parse("2019-11-12"),
+                    Origin = "Frankrike"
                 },
                 new Product
                 {
@@ -39,7 +39,8 @@ public class DbInitializer
                     Image = "apple.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 33, 
-                    CreatedDateTime= DateTime.Parse("2021-09-01")
+                    CreatedDateTime= DateTime.Parse("2021-09-01"),
+                    Origin = "Skåne"
                     
                 },
                 new Product
@@ -50,7 +51,8 @@ public class DbInitializer
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 30,
                     Stock = 500,
-                    CreatedDateTime= DateTime.Parse("2020-09-01")
+                    CreatedDateTime= DateTime.Parse("2020-09-01"),
+                    Origin = "Spanien"
                 },
                 new Product
                 {
@@ -60,7 +62,8 @@ public class DbInitializer
                     Volume = 1,
                     Unit = Unit.st, SalesPrice = 59, 
                     Stock = 500,
-                    CreatedDateTime= DateTime.Parse("2019-10-01")
+                    CreatedDateTime= DateTime.Parse("2019-10-01"),
+                    Origin = "Costa Rica"
                 },
                 new Product
                 {
@@ -135,6 +138,7 @@ public class DbInitializer
                     CreatedDateTime= DateTime.Parse("2021-04-21")
                 },
             };
+
 
             context.Products.AddRange(products);
             context.SaveChanges();
