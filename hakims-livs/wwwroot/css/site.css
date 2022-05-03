@@ -150,6 +150,10 @@ div.single-result div.image {
   }
 }
 
+.modal-origin{
+  font-size: 0.8rem;
+  text-align: center;
+}
 .modal-card-title{
   text-align: center;
 }

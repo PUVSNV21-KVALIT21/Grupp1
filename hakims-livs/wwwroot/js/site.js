@@ -38,6 +38,7 @@ function updateModal(modal, product){
     const volumeUnit = document.createElement("p");
     const price = document.createElement("h2");
     const modalFooter = document.createElement("div")
+    const origin = document.createElement('p')
 
     price.className = 'modal-price'
     modalImage.className = 'modal-image'
@@ -50,11 +51,13 @@ function updateModal(modal, product){
     priceContainer.className = "modal-price-container"
     buyButton.className = "btn btn-primary btn-product"
     modalFooter.className = "modal-card-footer"
+    origin.className = "modal-origin"
 
     modalImageContainer.appendChild(modalImage)
     productControls.appendChild(buyButton)
     modalCard.appendChild(modalImage)
     modalInfo.appendChild(title)
+    modalInfo.appendChild(origin)
     modalInfo.appendChild(description)
     priceContainer.appendChild(price);
     priceContainer.appendChild(volumeUnit);
@@ -65,6 +68,7 @@ function updateModal(modal, product){
 
 
     title.textContent = product.name
+    origin.textContent = product.origin
     description.textContent = product.description
     volumeUnit.textContent = product.volume +" " + product.unit
     price.textContent = product.salesPrice + "kr /"

@@ -72,7 +72,8 @@ public class DbInitializer
                     Image = "strawberry.jpg", 
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 25, 
-                    CreatedDateTime= DateTime.Parse("2019-10-01")
+                    CreatedDateTime= DateTime.Parse("2019-10-01"),
+                    Origin = "Sverige"
                 },
                 new Product
                 {
@@ -81,7 +82,8 @@ public class DbInitializer
                     Image = "pear.jpg", 
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 25, 
-                    CreatedDateTime= DateTime.Parse("2019-10-01")
+                    CreatedDateTime= DateTime.Parse("2019-10-01"),
+                    Origin = "Sverige"
                 },
                 new Product
                 {
@@ -90,7 +92,8 @@ public class DbInitializer
                     Image = "lemon.jpg", 
                     Volume = 1, 
                     Unit = Unit.st, SalesPrice = 15, 
-                    CreatedDateTime= DateTime.Parse("2021-10-21")
+                    CreatedDateTime= DateTime.Parse("2021-10-21"),
+                    Origin = "Argentina"
                 },
                 new Product
                 {
@@ -99,7 +102,8 @@ public class DbInitializer
                     Image = "fig.jpg", 
                     Volume = 2, 
                     Unit = Unit.st, SalesPrice = 20, 
-                    CreatedDateTime= DateTime.Parse("2021-11-21")
+                    CreatedDateTime= DateTime.Parse("2021-11-21"),
+                    Origin = "Turkiet"
                 },
                 new Product
                 {
@@ -108,7 +112,8 @@ public class DbInitializer
                     Image = "ginger.jpg", 
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 39, 
-                    CreatedDateTime= DateTime.Parse("2021-11-21")
+                    CreatedDateTime= DateTime.Parse("2021-11-21"),
+                    Origin = "Sri Lanka"
                 },
                 new Product
                 {
@@ -117,7 +122,8 @@ public class DbInitializer
                     Image = "avocado.jpg", 
                     Volume = 500, 
                     Unit = Unit.st, SalesPrice = 10, 
-                    CreatedDateTime= DateTime.Parse("2021-11-21")
+                    CreatedDateTime= DateTime.Parse("2021-11-21"),
+                    Origin = "Mexiko"
                 },
                 new Product
                 {
@@ -126,7 +132,8 @@ public class DbInitializer
                     Image = "grapes.jpg", 
                     Volume = 500, 
                     Unit = Unit.st, SalesPrice = 29, 
-                    CreatedDateTime= DateTime.Parse("2021-12-21")
+                    CreatedDateTime= DateTime.Parse("2021-12-21"),
+                    Origin = "Frankrike"
                 },
                 new Product
                 {
@@ -135,7 +142,8 @@ public class DbInitializer
                     Image = "bananas.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 19, 
-                    CreatedDateTime= DateTime.Parse("2021-04-21")
+                    CreatedDateTime= DateTime.Parse("2021-04-21"),
+                    Origin = "Colombia"
                 },
             };
 
