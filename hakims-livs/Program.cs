@@ -7,6 +7,13 @@ using hakims_livs.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
+
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));;
+
+//builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();;
 
 // Add services to the container.
 
@@ -29,6 +36,7 @@ builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireC
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<ICustomer, CustomerData>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<AccessControl>();
 // Added service for sending confirmation email
