@@ -25,12 +25,14 @@ body {
 .card-product{
   justify-content: space-between;
   padding: 0.5rem;
+  transition: padding 0.1s;
   box-shadow: 0 0 32px 0px rgba(199, 199, 199, 0.5);
   background-color: white;
   width: 240px;
 }
 
 .card-product:hover{
+  padding:0.4rem;
   box-shadow: 0 0 32px 0px rgba(199, 199, 199, 0.8);
 }
 
@@ -98,4 +100,108 @@ div.single-result div.image {
   margin-top: 64px;
   margin-bottom: 64px;
   text-align: center;
+}
+
+#modal-container{
+  justify-content: center;
+}
+.modal-background {
+  z-index: 1;
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.49);
+}
+
+.modal-card{
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: white;
+  position: absolute;
+  width: 70%;
+  max-width: 800px;
+  max-height: 800px;
+  min-height: 350px;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.modal-card-footer{
+
+}
+@media screen and (max-width: 800px) {
+  .modal-card{
+    height: 200px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .modal-card{
+    width: 85%;
+  }
+  .modal-price{
+    font-size: 1rem;
+  }
+}
+
+.modal-origin{
+  font-size: 0.8rem;
+  text-align: center;
+}
+.modal-card-title{
+  text-align: center;
+}
+
+.modal-card-description{
+  height: 100%;
+}
+
+.modal-image .loading{
+  background-color: black;
+}
+
+.modal-price{
+  display: inline;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.modal-info{
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+img.modal-image  {
+  background-color: white;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.modal-price-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-price-container > p{
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.blurred {
+  filter: blur(1px);
+
 }

@@ -2,10 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace hakims_livs.Models
 {
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Unit { gram, ml, st }
     public class Product
     {
@@ -37,6 +40,7 @@ namespace hakims_livs.Models
         public DateTime CreatedDateTime { get; set; }
         [Column(TypeName = "nvarchar(5)")]
         [Display(Name="Enhet")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public Unit Unit { get; set; }
         public List<ShoppingCart>? ShoppingCarts { get; set; }
         public bool IsEco { get; set; }
@@ -47,6 +51,7 @@ namespace hakims_livs.Models
         [Column(TypeName = "nvarchar(30)")]
         [Display(Name = "Varumärke")]
         public string? Brand { get; set; }
+        public string? Origin { get; set; }
 
         public Product()
         {

@@ -9,7 +9,7 @@
 
     @foreach (var item in Model.Product)
     {
-        <div class="card card-product single-result">
+        <div class="card card-product" id=@item.ID>
             @if (item.Image != null)
                         {
                             <img class="card-img-product" src="~/images/@item.Image" alt="Product Image">
