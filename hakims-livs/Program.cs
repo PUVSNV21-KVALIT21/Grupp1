@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
@@ -41,6 +42,10 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<AccessControl>();
 // Added service for sending confirmation email
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 var app = builder.Build();
 
@@ -74,7 +79,9 @@ app.UseRouting();
 //app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
