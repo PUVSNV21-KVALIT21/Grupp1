@@ -16,11 +16,21 @@ namespace hakims_livs.Models
         /// <param name="customer">Customer object</param>
         /// <returns>The task that respresents the asyncronous operation, containing the last name for the specified user</returns>
         Task<string> GetLastNameAsync(Customer customer);
+        Task<string?> GetStreetAsync(Customer customer);
+        Task<string?> GetCityAsync(Customer customer);
+        Task<string?> GetPostalCodeAsync(Customer customer);
+        Task<string?> GetCountryAsync(Customer customer);
+
         /// <summary>
         /// Sets the first name for the specified user in Hakims Livs database
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
         Task SetFirstNameAsync(Customer customer, string firstName);
+        Task SetLastNameAsync(Customer customer, string firstName);
+        Task SetStreetAsync(Customer customer, string street);
+        Task SetCityAsync(Customer user, string city);
+        Task SetPostalCodeAsync(Customer user, string postalCode);
+        Task SetCountryAsync(Customer user, string country);
     }
 }

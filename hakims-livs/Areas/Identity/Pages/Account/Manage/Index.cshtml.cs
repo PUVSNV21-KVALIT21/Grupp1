@@ -80,6 +80,10 @@ namespace hakims_livs.Areas.Identity.Pages.Account.Manage
             var firstName = await _customerData.GetFirstNameAsync(user);
             var lastName = await _customerData.GetLastNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var street = await _customerData.GetStreetAsync(user);
+            var city = await _customerData.GetCityAsync(user);
+            var postalCode = await _customerData.GetPostalCodeAsync(user);
+            var country = await _customerData.GetCountryAsync(user);
 
             Username = userName;
 
@@ -87,6 +91,14 @@ namespace hakims_livs.Areas.Identity.Pages.Account.Manage
             {
                 FirstName = firstName,
                 LastName = lastName
+            };
+
+            Address = new Address
+            {
+                Street = street,
+                City = city,
+                PostalCode = postalCode,
+                Country = country
             };
 
             Input = new InputModel
@@ -122,6 +134,11 @@ namespace hakims_livs.Areas.Identity.Pages.Account.Manage
             }
 
             await _customerData.SetFirstNameAsync(user, Customer.FirstName);
+            await _customerData.SetLastNameAsync(user, Customer.LastName);
+            await _customerData.SetStreetAsync(user, Address.Street);
+            await _customerData.SetCityAsync(user, Address.City);
+            await _customerData.SetPostalCodeAsync(user, Address.PostalCode);
+            await _customerData.SetCountryAsync(user, Address.Country);
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
