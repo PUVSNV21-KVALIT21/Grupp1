@@ -240,3 +240,7 @@ img.modal-image  {
   filter: blur(1px);
 
 }
+
+.disable-link {
+    pointer-events: none;
+}

@@ -1,6 +1,5 @@
 ﻿import { createModal, updateModal } from "./components/modal.js";
 
-alert('hi')
 localStorage.setItem("productId", 1)
 
 console.log(localStorage.getItem("productId"))
@@ -8,6 +7,7 @@ console.log(localStorage.getItem("productId"))
 
 const main = document.getElementById("site")
 const modalContainer = document.getElementById("modal-container")
+const checkoutButton = document.getElementById("checkoutButton")
 
 const productCards = document.querySelectorAll(".card-product");
 productCards.forEach(card => {
@@ -46,4 +46,14 @@ const handleProductClick = (e, id) => {
         console.log(localStorage.getItem("product"))
         updateModal(m, product);
     });
+}
+
+if (localStorage.length > 0) {
+    checkoutButton.textContent = "Till kassan: TOTALPRIS";
+    checkoutButton.classList.remove("disable-link");
+}
+else
+{
+    checkoutButton.textContent = "Till kassan";
+    checkoutButton.classList.add("disable-link");
 }

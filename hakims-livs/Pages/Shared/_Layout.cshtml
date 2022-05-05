@@ -37,7 +37,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <div class="shoppingcart"><a class="nav-link text-dark" asp-area="" asp-page="">Ersätt med kundvagn</a><div class="shoppingcart-counter">0</div></div>
+                    @if (!User.IsInRole("admin"))
+                    {
+                        <div class="shoppingcart" ><a class="nav-link text-dark" asp-area="" asp-page="/Checkout/Index" id="checkoutButton">Till kassan</a></div>
+                    }
                     
                     <partial name="_LoginPartial"/>
                 </div>
