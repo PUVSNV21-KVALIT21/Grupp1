@@ -11,9 +11,9 @@ public class ApplicationDbContext : IdentityDbContext<Customer>
         : base(options)
     {
     }
+    public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<Product> Products { get; set; }
     public DbSet<ShoppingCart> ShoppingCarts { get; set; }
     public DbSet<Address> Adresses { get; set; }
 

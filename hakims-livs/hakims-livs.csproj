@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers" />
-    <Folder Include="Migrations\" />
     <Folder Include="Pages\Products" />
     <Folder Include="wwwroot\uploads" />
   </ItemGroup>
@@ -106,6 +105,8 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Remove="wwwroot\js\components\shoppingCart.js" />
+    <Content Remove="wwwroot\js\components\subject.js" />
   </ItemGroup>
 
 </Project>

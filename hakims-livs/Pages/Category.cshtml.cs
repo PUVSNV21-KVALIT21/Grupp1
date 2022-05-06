@@ -21,6 +21,7 @@ namespace hakims_livs.Pages.Categories
         }
 
         public Category Category { get; set; }
+        public List<Product> Products { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +30,8 @@ namespace hakims_livs.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Categories.FirstOrDefaultAsync(m => m.ID == id);
+            Category = await _context.Categories.Include(c => c.Products).FirstOrDefaultAsync(m => m.ID == id);
+            Products = Category.Products.ToList();
 
             if (Category == null)
             {

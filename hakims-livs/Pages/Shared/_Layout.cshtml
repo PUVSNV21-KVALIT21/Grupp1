@@ -1,5 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model hakims_livs.Pages.IndexModel
+﻿
+@using Microsoft.AspNetCore.Identity
 @using hakims_livs.Models
 @inject SignInManager<Customer> SignInManager
 @inject UserManager<Customer> UserManager
@@ -47,7 +47,10 @@
                     </ul>
                     @if (!User.IsInRole("admin"))
                     {
-                        <div class="shoppingcart" ><a class="nav-link text-dark" asp-area="" asp-page="/Checkout/Index" id="checkoutButton">Till kassan</a></div>
+                        <div class="shoppingcart">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Checkout/Index" id="checkoutButton">Till kassan</a>
+                            <span class="badge pull-right shoppingCart-counter">234kr</span>
+                        </div>
                     }
                     
                     <partial name="_LoginPartial"/>
@@ -56,18 +59,7 @@
         </nav>
     </header>
     <div class="main-grid">
-        <div class="sidebar">
-        <h3>Kategorier:</h3>
-                @foreach (var item in Model.Category)
-                {
-                   <a class="nav-link text-dark" asp-area="" asp-page="">@Html.DisplayFor(modelItem => item.Name)</a>
-                }
-        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 2</a>
-        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 4</a>
-        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 5</a>
-        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 6</a>
-        <a class="nav-link text-dark" asp-area="" asp-page="">Osv...</a>
-        </div>
+        <partial name="_SidebarPartial"/>
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()

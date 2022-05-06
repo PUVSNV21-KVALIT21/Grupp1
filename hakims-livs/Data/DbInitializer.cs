@@ -19,7 +19,14 @@ public class DbInitializer
 
             ClearDirectory(destinationDir);
             CopyDirectory(sourceDir, destinationDir);
-
+            var categories = new List<Category>();
+        
+            var fruktOchGront = new Category() {Name = "Frukt & Grönt"};
+            var mejeriprodukter = new Category() {Name = "Mejeriprodukter"};
+            categories.Add(fruktOchGront);
+            categories.Add(mejeriprodukter);
+            
+            
             // Seed data
             var products = new Product[] {
                 new Product
@@ -30,7 +37,8 @@ public class DbInitializer
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 15, 
                     CreatedDateTime= DateTime.Parse("2019-11-12"),
-                    Origin = "Frankrike"
+                    Origin = "Frankrike",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -40,7 +48,8 @@ public class DbInitializer
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 33, 
                     CreatedDateTime= DateTime.Parse("2021-09-01"),
-                    Origin = "Skåne"
+                    Origin = "Skåne",
+                    Categories = new List<Category>{fruktOchGront}
                     
                 },
                 new Product
@@ -52,7 +61,8 @@ public class DbInitializer
                     Unit = Unit.gram, SalesPrice = 30,
                     Stock = 500,
                     CreatedDateTime= DateTime.Parse("2020-09-01"),
-                    Origin = "Spanien"
+                    Origin = "Spanien",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -63,7 +73,8 @@ public class DbInitializer
                     Unit = Unit.st, SalesPrice = 59, 
                     Stock = 500,
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
-                    Origin = "Costa Rica"
+                    Origin = "Costa Rica",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -73,7 +84,8 @@ public class DbInitializer
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 25, 
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
-                    Origin = "Sverige"
+                    Origin = "Sverige",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -83,7 +95,8 @@ public class DbInitializer
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 25, 
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
-                    Origin = "Sverige"
+                    Origin = "Sverige",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -93,7 +106,8 @@ public class DbInitializer
                     Volume = 1, 
                     Unit = Unit.st, SalesPrice = 15, 
                     CreatedDateTime= DateTime.Parse("2021-10-21"),
-                    Origin = "Argentina"
+                    Origin = "Argentina",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -103,7 +117,8 @@ public class DbInitializer
                     Volume = 2, 
                     Unit = Unit.st, SalesPrice = 20, 
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
-                    Origin = "Turkiet"
+                    Origin = "Turkiet",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -113,7 +128,8 @@ public class DbInitializer
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 39, 
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
-                    Origin = "Sri Lanka"
+                    Origin = "Sri Lanka",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -123,7 +139,8 @@ public class DbInitializer
                     Volume = 500, 
                     Unit = Unit.st, SalesPrice = 10, 
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
-                    Origin = "Mexiko"
+                    Origin = "Mexiko",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -133,7 +150,8 @@ public class DbInitializer
                     Volume = 500, 
                     Unit = Unit.st, SalesPrice = 29, 
                     CreatedDateTime= DateTime.Parse("2021-12-21"),
-                    Origin = "Frankrike"
+                    Origin = "Frankrike",
+                    Categories = new List<Category>{fruktOchGront}
                 },
                 new Product
                 {
@@ -143,11 +161,23 @@ public class DbInitializer
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 19, 
                     CreatedDateTime= DateTime.Parse("2021-04-21"),
-                    Origin = "Colombia"
+                    Origin = "Colombia",
+                    Categories = new List<Category>{fruktOchGront}
+                },
+                new Product
+                {
+                    Name= "Mjölk",
+                    Description= "Fetthalt 3.5%", 
+                    Image = "milk.jpg", 
+                    Volume = 1000, 
+                    Unit = Unit.gram, SalesPrice = 19, 
+                    CreatedDateTime= DateTime.Parse("2021-04-21"),
+                    Origin = "Colombia",
+                    Categories = new List<Category>{mejeriprodukter}
                 },
             };
 
-
+            context.Categories.AddRange(categories);
             context.Products.AddRange(products);
             context.SaveChanges();
 
