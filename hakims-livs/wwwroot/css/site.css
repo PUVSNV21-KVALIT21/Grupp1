@@ -47,7 +47,6 @@ body {
 }
 
 .btn-product-add, .btn-product-remove{
-  transition: 0.2s;
   width: 40%;
 }
 
