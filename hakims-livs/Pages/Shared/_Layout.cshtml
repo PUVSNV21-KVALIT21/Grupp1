@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@model hakims_livs.Pages.IndexModel
 @using hakims_livs.Models
 @inject SignInManager<Customer> SignInManager
 @inject UserManager<Customer> UserManager
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +36,12 @@
                             }
                         </li>
                         <li class="nav-item">
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Categories/Index">Categories</a>
+                            }
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
@@ -46,14 +54,16 @@
     </header>
     <div class="main-grid">
         <div class="sidebar">
-            <h3>Kategorier:</h3>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Ersätt med kategorier...</a>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 2</a>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 3</a>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 4</a>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 5</a>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 6</a>
-            <a class="nav-link text-dark" asp-area="" asp-page="">Osv...</a>
+        <h3>Kategorier:</h3>
+                @foreach (var item in Model.Category)
+                {
+                   <a class="nav-link text-dark" asp-area="" asp-page="">@Html.DisplayFor(modelItem => item.Name)</a>
+                }
+        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 2</a>
+        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 4</a>
+        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 5</a>
+        <a class="nav-link text-dark" asp-area="" asp-page="">Kategori 6</a>
+        <a class="nav-link text-dark" asp-area="" asp-page="">Osv...</a>
         </div>
         <div class="container">
             <main role="main" class="pb-3">

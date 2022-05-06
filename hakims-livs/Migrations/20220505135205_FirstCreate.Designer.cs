@@ -12,8 +12,8 @@ using hakims_livs.Data;
 namespace hakims_livs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220502123314_first")]
-    partial class first
+    [Migration("20220505135205_FirstCreate")]
+    partial class FirstCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,13 +145,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "132a12df-4ee0-4b1c-8021-607729938865",
+                            ConcurrencyStamp = "621fead5-dd8a-4f81-a500-e72010a34653",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPi5mNrXrSSrgumV16MVRxeuJ3PfDBaKLTaXVJEt9XjoqdpXYaisU5yNZ7hpMqEgHw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEQtlu3gkMUHbZY4TduP9eQqL1X8gOgS1Tc+PNK7phsfNbjOghpzh4mgvhFYhFdZpw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -259,6 +259,9 @@ namespace hakims_livs.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("Origin")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("RegularPrice")
                         .HasColumnType("decimal(18,4)");
 
@@ -332,7 +335,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "ec7d6f80-1b36-4eb4-8d0e-48239c22dc8a",
+                            ConcurrencyStamp = "c06678c6-ffac-4740-a5ed-c481625546b0",
                             Name = "admin",
                             NormalizedName = "admin"
                         });

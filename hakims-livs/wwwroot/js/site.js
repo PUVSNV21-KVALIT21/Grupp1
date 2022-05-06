@@ -1,6 +1,6 @@
 ﻿import { createModal, updateModal } from "./components/modal.js";
 
-alert('hi')
+
 localStorage.setItem("productId", 1)
 
 console.log(localStorage.getItem("productId"))
