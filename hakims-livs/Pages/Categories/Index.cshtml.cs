@@ -9,27 +9,22 @@ using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
 
-namespace hakims_livs.Pages
+namespace hakims_livs.Pages.Categories
 {
     public class IndexModel : PageModel
     {
-        private readonly hakims_livs.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(hakims_livs.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<Product> Product { get;set; }
         public IList<Category> Category { get;set; }
 
         public async Task OnGetAsync()
         {
-            Product = await _context.Products.ToListAsync();
             Category = await _context.Categories.ToListAsync();
         }
-
-        
     }
 }
-

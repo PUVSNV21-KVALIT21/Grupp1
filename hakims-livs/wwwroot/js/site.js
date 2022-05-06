@@ -1,4 +1,4 @@
-﻿import { createModal, updateModal } from "./components/modal.js";
+import { createModal, updateModal } from "./components/modal.js";
 
 localStorage.setItem("productId", 1)
 
