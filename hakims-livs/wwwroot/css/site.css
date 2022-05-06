@@ -203,7 +203,10 @@ div.single-result div.image {
 .shoppingCart-counter{
   font-size: 1rem;
   background-color: var(--bs-primary);
+}
 
+.pop {
+  z-index: 2;
 }
 
 .sidebar{

@@ -24,7 +24,6 @@ const updateCounter = (itemsInCart) => {
         const price = item.salesPrice;
         if (price) value = value + price
     })
-    
     cartCounter.textContent = value > 0 ? value + "kr" : "";
 }
 
