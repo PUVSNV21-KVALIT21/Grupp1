@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace hakims_livs.Migrations
 {
-    public partial class FirstCreate : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,19 +37,6 @@ namespace hakims_livs.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,7 +212,6 @@ namespace hakims_livs.Migrations
                     ComparisonPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     Volume = table.Column<int>(type: "int", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: true),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Unit = table.Column<string>(type: "nvarchar(5)", nullable: false),
                     IsEco = table.Column<bool>(type: "bit", nullable: false),
@@ -244,11 +230,6 @@ namespace hakims_livs.Migrations
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryID",
-                        column: x => x.CategoryID,
-                        principalTable: "Categories",
-                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -267,6 +248,31 @@ namespace hakims_livs.Migrations
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: true),
+                    ProductID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Categories_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -322,12 +328,12 @@ namespace hakims_livs.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "c06678c6-ffac-4740-a5ed-c481625546b0", "admin", "admin" });
+                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "3a97b95d-7280-4453-afbe-9e1e2b0bc524", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressID", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "621fead5-dd8a-4f81-a500-e72010a34653", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEEQtlu3gkMUHbZY4TduP9eQqL1X8gOgS1Tc+PNK7phsfNbjOghpzh4mgvhFYhFdZpw==", null, false, "", false, "admin@gmail.com" });
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "5be0d4d9-237e-4730-aded-9ac40c50a4ca", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEOCda1SDhNIRcH47PCWYr7swYA/vcjsM6GejAg5BtSwh5p55PKC5IaeBBjL24u4sOQ==", null, false, "", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -379,6 +385,16 @@ namespace hakims_livs.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryID",
+                table: "Categories",
+                column: "CategoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_ProductID",
+                table: "Categories",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderRow_OrderID",
                 table: "OrderRow",
                 column: "OrderID");
@@ -392,11 +408,6 @@ namespace hakims_livs.Migrations
                 name: "IX_Orders_CustomerId",
                 table: "Orders",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryID",
-                table: "Products",
-                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CustomerId",
@@ -432,6 +443,9 @@ namespace hakims_livs.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "OrderRow");
 
             migrationBuilder.DropTable(
@@ -448,9 +462,6 @@ namespace hakims_livs.Migrations
 
             migrationBuilder.DropTable(
                 name: "ShoppingCarts");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

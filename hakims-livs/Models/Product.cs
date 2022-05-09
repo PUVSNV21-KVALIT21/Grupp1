@@ -27,16 +27,20 @@ namespace hakims_livs.Models
         public decimal SalesPrice { get; set; }
         [Display(Name="Normalpris")]
         [Column(TypeName = "decimal(18,4)")]
+        [JsonIgnore]
         public decimal RegularPrice { get; set; }
         [Display(Name = "Jämförelsepris")]
         [Column(TypeName = "decimal(18,4)")]
+        [JsonIgnore]
         public decimal? ComparisonPrice { get; set; }
         [Display(Name="Lagersaldo")]
+        [JsonIgnore]
         public int Stock { get; set; }
         [Display(Name="Volym")]
         public int Volume { get; set; }
-        public Category? Category { get; set; }
+        public List<Category>? Categories { get; set; }
         [Display(Name="Produkt inlagd")]
+        [JsonIgnore]
         public DateTime CreatedDateTime { get; set; }
         [Column(TypeName = "nvarchar(5)")]
         [Display(Name="Enhet")]

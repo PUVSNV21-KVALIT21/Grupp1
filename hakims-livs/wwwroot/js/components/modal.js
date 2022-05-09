@@ -1,3 +1,5 @@
+import {LocalStorage} from "./localStorage.js";
+
 export const createModal = (handleClick) => {
 
     const modal = document.createElement('div')
@@ -12,7 +14,7 @@ export const createModal = (handleClick) => {
     return modal
 }
 
-export function updateModal(modal, product){
+export function updateModal(modal, product, onAddClick, onRemoveClick){
 
     if (modal.classList.contains('loading')) modal.classList.remove('loading');
 
@@ -21,8 +23,8 @@ export function updateModal(modal, product){
     const modalImageContainer = document.createElement('div')
     const modalInfo = document.createElement('div')
     const title = document.createElement("h1")
-    const productControls = document.createElement("div")
-    const buyButton = document.createElement("button")
+    let productControls = document.createElement("div")
+    productControls = updateModalButtons(productControls, product, onAddClick, onRemoveClick);
     const description = document.createElement("p")
     const priceContainer = document.createElement('div');
     const volumeUnit = document.createElement("p");
@@ -39,12 +41,18 @@ export function updateModal(modal, product){
     description.className = "modal-card-description"
     productControls.className = "modal-product-controls"
     priceContainer.className = "modal-price-container"
-    buyButton.className = "btn btn-primary btn-product"
+
     modalFooter.className = "modal-card-footer"
     origin.className = "modal-origin"
 
+    title.textContent = product.name
+    origin.textContent = product.origin
+    description.textContent = product.description
+    volumeUnit.textContent = product.volume +" " + product.unit
+    price.textContent = product.salesPrice + "kr /"
+    
+
     modalImageContainer.appendChild(modalImage)
-    productControls.appendChild(buyButton)
     modalCard.appendChild(modalImage)
     modalInfo.appendChild(title)
     modalInfo.appendChild(origin)
@@ -57,10 +65,39 @@ export function updateModal(modal, product){
     modalCard.appendChild(modalInfo)
 
 
-    title.textContent = product.name
-    origin.textContent = product.origin
-    description.textContent = product.description
-    volumeUnit.textContent = product.volume +" " + product.unit
-    price.textContent = product.salesPrice + "kr /"
-    buyButton.textContent = "Köp"
+
+}
+
+export const updateModalButtons = (parent, product, onAddClick, onRemoveClick) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.lastChild);
+    }
+    const buyButton = document.createElement("button")
+    const removeButton = document.createElement("button")
+    buyButton.addEventListener("click", onAddClick)
+    removeButton.addEventListener("click", onRemoveClick)
+    buyButton.className = "btn btn-primary btn-product btn-product-add"
+    buyButton.id = product.id
+    removeButton.className = "btn btn-primary btn-product btn-product-remove"
+    removeButton.id = product.id
+    const cart = LocalStorage.Get("shoppingCart")
+    let cartContainsProduct;
+    cart.forEach((p) => {
+        if (p.id === product.id){
+            cartContainsProduct = true;
+        }
+    })
+    console.log(cartContainsProduct)
+    console.log(cart)
+    if (cartContainsProduct) {
+        console.log("IN CART")
+        parent.appendChild(removeButton);
+        parent.appendChild(buyButton)
+        buyButton.textContent = "+"
+        removeButton.textContent = "-"
+    } else {
+        parent.appendChild(buyButton)
+        buyButton.textContent = "Köp"
+    }
+    return parent;
 }
