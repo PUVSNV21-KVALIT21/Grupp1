@@ -1,4 +1,4 @@
-import {createModal, updateModal, updateModalButtons} from "./components/modal.js";
+﻿import {createModal, updateModal, updateModalButtons} from "./components/modal.js";
 import { Api } from "./components/api.js";
 import LocalStorage from "./components/localStorage.js";
 
@@ -7,12 +7,28 @@ const main = document.getElementById("site")
 const modalContainer = document.getElementById("modal-container")
 const checkoutButton = document.getElementById("checkoutButton")
 
+const categoriesContainer = document.querySelector(".categories-container")
 const productCards = document.querySelectorAll(".card-product");
 productCards.forEach(card => {
     card.addEventListener('click', (event) => {
         handleProductClick(event, card.id)
     })
 })
+
+async function updateCategories() {
+    const response = await fetch('/api/Categories');
+    const categories = await response.json();
+    console.log(categories)
+    categories.forEach((category) => {
+        const categoryElement = document.createElement('a');
+        categoryElement.classList.add("nav-link")
+        categoryElement.classList.add("text-dark")
+        categoryElement.href = "/Category?id=" + category.id
+        categoryElement.textContent = category.name;
+        categoriesContainer.appendChild(categoryElement);
+        
+    })
+}
 
 const updateCounter = (itemsInCart) => {
     
@@ -93,4 +109,5 @@ else
     checkoutButton.classList.add("disable-link");
 }
 
+updateCategories();
 updateCounter(LocalStorage.Get("shoppingCart"));
