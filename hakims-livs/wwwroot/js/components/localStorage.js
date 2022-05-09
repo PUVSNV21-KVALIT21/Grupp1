@@ -5,7 +5,7 @@ export class LocalStorage {
         if (JSON.parse(localStorage.getItem(key))) {
             value = JSON.parse(localStorage.getItem(key));
         }
-        return value;
+        return value || [];
     }
     
     static Set = (key, value) => {
