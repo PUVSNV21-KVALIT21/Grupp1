@@ -5,6 +5,7 @@ export class Api {
         return await response.json();
     }
 
+    
     static getCategories = async () => {
         const response = await fetch('/api/Categories');
         return await response.json();
