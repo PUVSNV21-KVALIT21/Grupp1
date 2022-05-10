@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace hakims_livs.Migrations
 {
-    public partial class first : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,6 +37,19 @@ namespace hakims_livs.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,28 +264,27 @@ namespace hakims_livs.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "CategoryProduct",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: true),
-                    ProductID = table.Column<int>(type: "int", nullable: true)
+                    CategoriesID = table.Column<int>(type: "int", nullable: false),
+                    ProductsID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.ID);
+                    table.PrimaryKey("PK_CategoryProduct", x => new { x.CategoriesID, x.ProductsID });
                     table.ForeignKey(
-                        name: "FK_Categories_Categories_CategoryID",
-                        column: x => x.CategoryID,
+                        name: "FK_CategoryProduct_Categories_CategoriesID",
+                        column: x => x.CategoriesID,
                         principalTable: "Categories",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Categories_Products_ProductID",
-                        column: x => x.ProductID,
+                        name: "FK_CategoryProduct_Products_ProductsID",
+                        column: x => x.ProductsID,
                         principalTable: "Products",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,12 +340,12 @@ namespace hakims_livs.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "3a97b95d-7280-4453-afbe-9e1e2b0bc524", "admin", "admin" });
+                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "ebd53da7-27c5-4f86-9e9d-ceb9d2f55497", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressID", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "5be0d4d9-237e-4730-aded-9ac40c50a4ca", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEOCda1SDhNIRcH47PCWYr7swYA/vcjsM6GejAg5BtSwh5p55PKC5IaeBBjL24u4sOQ==", null, false, "", false, "admin@gmail.com" });
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "47b3c1ed-9538-458f-9608-f239e6f8f216", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEAEmAiWpgOOqhhFsyZGYEHA0QpBkcqndVf8R3EgJPAHgiiBithfnMA7jPzJrx6yfsw==", null, false, "", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -385,14 +397,9 @@ namespace hakims_livs.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryID",
-                table: "Categories",
-                column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_ProductID",
-                table: "Categories",
-                column: "ProductID");
+                name: "IX_CategoryProduct_ProductsID",
+                table: "CategoryProduct",
+                column: "ProductsID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderRow_OrderID",
@@ -443,7 +450,7 @@ namespace hakims_livs.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "CategoryProduct");
 
             migrationBuilder.DropTable(
                 name: "OrderRow");
@@ -453,6 +460,9 @@ namespace hakims_livs.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Orders");
