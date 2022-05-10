@@ -49,6 +49,8 @@ public class ApplicationDbContext : IdentityDbContext<Customer>
             RoleId = ROLE_ID,
             UserId = ADMIN_ID
         });
+
+        modelBuilder.Entity<Product>().HasMany(p => p.Categories);
     }
 }
 

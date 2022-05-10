@@ -12,8 +12,8 @@ using hakims_livs.Data;
 namespace hakims_livs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220506090607_first2")]
-    partial class first2
+    [Migration("20220509092118_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,13 +161,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "63e2922e-4f06-470e-930b-4c53c7e44604",
+                            ConcurrencyStamp = "47b3c1ed-9538-458f-9608-f239e6f8f216",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEr7q+EGDvjhISRwJpXNy72oqsrdD74PPGbz+TClmKX3nczkg5lZwhpfsiorPYskoA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAEmAiWpgOOqhhFsyZGYEHA0QpBkcqndVf8R3EgJPAHgiiBithfnMA7jPzJrx6yfsw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -346,7 +346,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "8c87d570-6533-46b3-a103-a7eaf35bd816",
+                            ConcurrencyStamp = "ebd53da7-27c5-4f86-9e9d-ceb9d2f55497",
                             Name = "admin",
                             NormalizedName = "admin"
                         });

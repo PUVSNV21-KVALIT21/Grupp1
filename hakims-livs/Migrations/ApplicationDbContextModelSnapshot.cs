@@ -34,7 +34,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ProductsID");
 
-                    b.ToTable("CategoryProduct");
+                    b.ToTable("CategoryProduct", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Address", b =>
@@ -59,7 +59,7 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Adresses", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Category", b =>
@@ -76,7 +76,7 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
@@ -159,13 +159,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "64c8f36a-8812-4516-bd32-fc0f129f4209",
+                            ConcurrencyStamp = "47b3c1ed-9538-458f-9608-f239e6f8f216",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA427Ur0EbGuo2eETYNqsmQWIyhALZUmhcq4pr2IkUHHByAF4atXx/kYs0kYd7cNYg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAEmAiWpgOOqhhFsyZGYEHA0QpBkcqndVf8R3EgJPAHgiiBithfnMA7jPzJrx6yfsw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -194,7 +194,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.OrderRow", b =>
@@ -223,7 +223,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderRow");
+                    b.ToTable("OrderRow", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Product", b =>
@@ -293,7 +293,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>
@@ -311,7 +311,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("ShoppingCarts");
+                    b.ToTable("ShoppingCarts", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -344,7 +344,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "1e38760a-0510-41bd-8aad-545ec9a9bf55",
+                            ConcurrencyStamp = "ebd53da7-27c5-4f86-9e9d-ceb9d2f55497",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
@@ -479,7 +479,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ShoppingCartsID");
 
-                    b.ToTable("ProductShoppingCart");
+                    b.ToTable("ProductShoppingCart", (string)null);
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>
