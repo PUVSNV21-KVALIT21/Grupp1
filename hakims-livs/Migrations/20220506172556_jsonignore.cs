@@ -4,50 +4,40 @@
 
 namespace hakims_livs.Migrations
 {
-    public partial class productOrigin : Migration
+    public partial class jsonignore : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Origin",
-                table: "Products",
-                type: "nvarchar(max)",
-                nullable: true);
-
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "ad376a8f-9eab-4bb9-9fca-30b01540f445",
                 column: "ConcurrencyStamp",
-                value: "8a0b4c02-32ca-4b5b-aac9-ca9289c010e7");
+                value: "1e38760a-0510-41bd-8aad-545ec9a9bf55");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "aa49ddf5-680a-4f5d-becc-20b6053ec7ce", "AQAAAAEAACcQAAAAEEkFwbobZd8wmSdxBZsInS+8w+pDNUCBdgz4DD49T737v6/xL3bNWYDb0UvNQarZpA==" });
+                values: new object[] { "64c8f36a-8812-4516-bd32-fc0f129f4209", "AQAAAAEAACcQAAAAEA427Ur0EbGuo2eETYNqsmQWIyhALZUmhcq4pr2IkUHHByAF4atXx/kYs0kYd7cNYg==" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Origin",
-                table: "Products");
-
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "ad376a8f-9eab-4bb9-9fca-30b01540f445",
                 column: "ConcurrencyStamp",
-                value: "ec7d6f80-1b36-4eb4-8d0e-48239c22dc8a");
+                value: "8c87d570-6533-46b3-a103-a7eaf35bd816");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "132a12df-4ee0-4b1c-8021-607729938865", "AQAAAAEAACcQAAAAEPi5mNrXrSSrgumV16MVRxeuJ3PfDBaKLTaXVJEt9XjoqdpXYaisU5yNZ7hpMqEgHw==" });
+                values: new object[] { "63e2922e-4f06-470e-930b-4c53c7e44604", "AQAAAAEAACcQAAAAEEr7q+EGDvjhISRwJpXNy72oqsrdD74PPGbz+TClmKX3nczkg5lZwhpfsiorPYskoA==" });
         }
     }
 }

@@ -22,6 +22,21 @@ namespace hakims_livs.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CategoryProduct", b =>
+                {
+                    b.Property<int>("CategoriesID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriesID", "ProductsID");
+
+                    b.HasIndex("ProductsID");
+
+                    b.ToTable("CategoryProduct");
+                });
+
             modelBuilder.Entity("hakims_livs.Models.Address", b =>
                 {
                     b.Property<int>("ID")
@@ -56,6 +71,7 @@ namespace hakims_livs.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -143,13 +159,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa49ddf5-680a-4f5d-becc-20b6053ec7ce",
+                            ConcurrencyStamp = "64c8f36a-8812-4516-bd32-fc0f129f4209",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEkFwbobZd8wmSdxBZsInS+8w+pDNUCBdgz4DD49T737v6/xL3bNWYDb0UvNQarZpA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA427Ur0EbGuo2eETYNqsmQWIyhALZUmhcq4pr2IkUHHByAF4atXx/kYs0kYd7cNYg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -221,9 +237,6 @@ namespace hakims_livs.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("CategoryID")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("ComparisonPrice")
                         .HasColumnType("decimal(18,4)");
 
@@ -278,8 +291,6 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CategoryID");
-
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Products");
@@ -333,7 +344,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "8a0b4c02-32ca-4b5b-aac9-ca9289c010e7",
+                            ConcurrencyStamp = "1e38760a-0510-41bd-8aad-545ec9a9bf55",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
@@ -471,6 +482,21 @@ namespace hakims_livs.Migrations
                     b.ToTable("ProductShoppingCart");
                 });
 
+            modelBuilder.Entity("CategoryProduct", b =>
+                {
+                    b.HasOne("hakims_livs.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hakims_livs.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
                 {
                     b.HasOne("hakims_livs.Models.Address", "Address")
@@ -506,15 +532,9 @@ namespace hakims_livs.Migrations
 
             modelBuilder.Entity("hakims_livs.Models.Product", b =>
                 {
-                    b.HasOne("hakims_livs.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID");
-
                     b.HasOne("hakims_livs.Models.Customer", null)
                         .WithMany("FavouriteProducts")
                         .HasForeignKey("CustomerId");
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>

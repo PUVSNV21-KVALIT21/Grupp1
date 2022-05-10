@@ -45,8 +45,13 @@ body {
 .btn-product {
   width: 100%;
 }
-.table{
 
+.btn-product-add, .btn-product-remove{
+  width: 40%;
+}
+
+.table{
+  
   background-color: white;
 }
 
@@ -97,8 +102,10 @@ div.single-result div.image {
 }
 
 .title {
-  margin-top: 64px;
-  margin-bottom: 64px;
+  background-color: white;
+  height: 100%;
+  padding-top: 64px;
+  padding-bottom: 64px;
   text-align: center;
 }
 
@@ -179,6 +186,40 @@ div.single-result div.image {
   justify-content: space-between;
 }
 
+.modal-product-controls{
+  display: flex;
+  justify-content: space-around;
+}
+
+.main-grid{
+  display: flex;
+}
+
+.shoppingcart{
+  align-items: center;
+  display: flex;
+}
+
+.shoppingCart-counter{
+  font-size: 1rem;
+  background-color: var(--bs-primary);
+}
+
+.pop {
+  z-index: 2;
+}
+
+.sidebar{
+  padding-left: 32px;
+  padding-top: 64px;
+  width: 350px;
+  height: auto;
+  background-color: var(--color-grey)
+}
+
+.sidebar > h6{
+  margin-top: 24px;
+}
 .modal-image {
   width: 100%;
   height: 100%;
@@ -202,6 +243,9 @@ img.modal-image  {
 }
 
 .blurred {
-  filter: blur(1px);
+  /* filter: blur(1px); */
+}
 
+.disable-link {
+    pointer-events: none;
 }

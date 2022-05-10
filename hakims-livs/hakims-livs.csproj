@@ -16,11 +16,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers" />
-    <Folder Include="Migrations\" />
     <Folder Include="Pages\Products" />
     <Folder Include="wwwroot\uploads" />
   </ItemGroup>
@@ -104,6 +104,8 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Remove="wwwroot\js\components\shoppingCart.js" />
+    <Content Remove="wwwroot\js\components\subject.js" />
   </ItemGroup>
 
 </Project>

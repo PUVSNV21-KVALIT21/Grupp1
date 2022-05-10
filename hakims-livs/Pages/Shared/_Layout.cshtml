@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿
+@using Microsoft.AspNetCore.Identity
 @using hakims_livs.Models
 @inject SignInManager<Customer> SignInManager
 @inject UserManager<Customer> UserManager
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,36 +19,53 @@
 <body>
 <div id="modal-container"></div>
 <div id="site">
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">Hakims Livs</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        @if (User.IsInRole("admin"))
-                        {
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Admin</a>
-                        }
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                    </li>
-                </ul>
-                <partial name="_LoginPartial"/>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Hakims Livs</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Admin</a>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Categories/Index">Categories</a>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    @if (!User.IsInRole("admin"))
+                    {
+                        <div class="shoppingcart">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Checkout/Index" id="checkoutButton">Till kassan</a>
+                            <span class="badge pull-right shoppingCart-counter">234kr</span>
+                        </div>
+                    }
+                    
+                    <partial name="_LoginPartial"/>
+                </div>
             </div>
+        </nav>
+    </header>
+    <div class="main-grid">
+        <partial name="_SidebarPartial"/>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+    </div>
 
 <footer class="border-top footer text-muted">
     <div class="container">
@@ -56,7 +75,7 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+<script type="module" src="~/js/site.js" defer asp-append-version="true"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

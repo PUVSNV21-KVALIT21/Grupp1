@@ -21,11 +21,15 @@ namespace hakims_livs.Pages
         }
 
         public IList<Product> Product { get;set; }
+        public IList<Category> Category { get;set; }
 
         public async Task OnGetAsync()
         {
             Product = await _context.Products.ToListAsync();
+            Category = await _context.Categories.ToListAsync();
         }
+
+        
     }
 }
 

@@ -1,6 +1,13 @@
-﻿const main = document.getElementById("site")
-const modalContainer = document.getElementById("modal-container")
+﻿import {createModal, updateModal, updateModalButtons} from "./components/modal.js";
+import { Api } from "./components/api.js";
+import LocalStorage from "./components/localStorage.js";
 
+const cartCounter = document.querySelector('.shoppingCart-counter')
+const main = document.getElementById("site")
+const modalContainer = document.getElementById("modal-container")
+const checkoutButton = document.getElementById("checkoutButton")
+
+const categoriesContainer = document.querySelector(".categories-container")
 const productCards = document.querySelectorAll(".card-product");
 productCards.forEach(card => {
     card.addEventListener('click', (event) => {
@@ -8,78 +15,40 @@ productCards.forEach(card => {
     })
 })
 
-const handleProductClick = (e, id) => {
-    main.className = "blurred";
-    const m = createModal();
-    modalContainer.appendChild(m)
-    fetchProduct(id).then(product => {
-        updateModal(m, product);
-    });
+async function updateCategories() {
+    const response = await fetch('/api/Categories');
+    const categories = await response.json();
+    console.log(categories)
+    categories.forEach((category) => {
+        const categoryElement = document.createElement('a');
+        categoryElement.classList.add("nav-link")
+        categoryElement.classList.add("text-dark")
+        categoryElement.href = "/Category?id=" + category.id
+        categoryElement.textContent = category.name;
+        categoriesContainer.appendChild(categoryElement);
+        
+    })
 }
 
-async function fetchProduct(id) {
-    const response = await fetch('/api/Products/' + id);
-    return await response.json();
+const updateCounter = (itemsInCart) => {
+    
+    if (!itemsInCart) return
+    
+    let value = 0;
+    
+    itemsInCart.forEach((item) => {
+        const price = item.salesPrice;
+        if (price) value = value + price
+    })
+    cartCounter.textContent = value > 0 ? value + "kr" : "";
 }
 
-function updateModal(modal, product){
 
-    if (modal.classList.contains('loading')) modal.classList.remove('loading');
-
-    const modalCard = document.querySelector(".modal-card");
-    const modalImage = document.createElement('img')
-    const modalImageContainer = document.createElement('div')
-    const modalInfo = document.createElement('div')
-    const title = document.createElement("h1")
-    const productControls = document.createElement("div")
-    const buyButton = document.createElement("button")
-    const description = document.createElement("p")
-    const priceContainer = document.createElement('div');
-    const volumeUnit = document.createElement("p");
-    const price = document.createElement("h2");
-    const modalFooter = document.createElement("div")
-    const origin = document.createElement('p')
-
-    price.className = 'modal-price'
-    modalImage.className = 'modal-image'
-    modalImage.src = "/images/" + product.image
-    modalImageContainer.className = "modal-image"
-    modalInfo.className = "modal-info"
-    title.className = "modal-card-title"
-    description.className = "modal-card-description"
-    productControls.className = "modal-product-controls"
-    priceContainer.className = "modal-price-container"
-    buyButton.className = "btn btn-primary btn-product"
-    modalFooter.className = "modal-card-footer"
-    origin.className = "modal-origin"
-
-    modalImageContainer.appendChild(modalImage)
-    productControls.appendChild(buyButton)
-    modalCard.appendChild(modalImage)
-    modalInfo.appendChild(title)
-    modalInfo.appendChild(origin)
-    modalInfo.appendChild(description)
-    priceContainer.appendChild(price);
-    priceContainer.appendChild(volumeUnit);
-    modalFooter.appendChild(priceContainer);
-    modalFooter.appendChild(productControls)
-    modalInfo.appendChild(modalFooter)
-    modalCard.appendChild(modalInfo)
-
-
-    title.textContent = product.name
-    origin.textContent = product.origin
-    description.textContent = product.description
-    volumeUnit.textContent = product.volume +" " + product.unit
-    price.textContent = product.salesPrice + "kr /"
-    buyButton.textContent = "Köp"
-}
 
 const handleModalClick = (e) => {
 
-    console.log(e)
     e.preventDefault()
-    //do nothing if the click happened within the image
+    //do nothing if the click happened within the card
     if (e.target.className === ('modal-card')){
         return
     }
@@ -89,16 +58,56 @@ const handleModalClick = (e) => {
     main.className = "";
 }
 
-const createModal = () => {
-
-    const modal = document.createElement('div')
-    const modalCard = document.createElement('div')
-
-    modalCard.className = 'modal-card'
-    modal.classList.add("loading");
-    modal.className = 'modal-background'
-    modal.addEventListener('click', handleModalClick)
-    modal.appendChild(modalCard)
-
-    return modal
+const handleAddClick = async (e) => {
+    let itemsInCart = LocalStorage.Get("shoppingCart");
+    if (!itemsInCart) itemsInCart = []
+    const product = await Api.getProduct(e.target.id)
+    itemsInCart.push(product)
+    LocalStorage.Set("shoppingCart", itemsInCart)
+    const modalControllers = document.querySelector('.modal-product-controls')
+    updateModalButtons(modalControllers, product, handleAddClick, handleRemoveClick)
+    updateCounter(itemsInCart)
 }
+
+const handleRemoveClick = async (e) => {
+    let itemsInCart = LocalStorage.Get("shoppingCart");
+    if (!itemsInCart) return
+    const product = await Api.getProduct(e.target.id)
+    let removed = false;
+    const updatedCart = [];
+    itemsInCart.forEach((p) => {
+        if (!removed && p.id === product.id)
+            removed = true;
+        else updatedCart.push(p)
+        
+    })
+    LocalStorage.Set("shoppingCart", updatedCart)
+    const modalControllers = document.querySelector('.modal-product-controls')
+    updateModalButtons(modalControllers, product, handleAddClick, handleRemoveClick)
+    updateCounter(updatedCart)
+}
+
+
+
+const handleProductClick = (e, id) => {
+    main.className = "blurred";
+    const m = createModal(handleModalClick);
+    modalContainer.appendChild(m)
+    Api.getProduct(id).then(product => {
+        window.localStorage.setItem("product", JSON.stringify(product))
+        updateModal(m, product, handleAddClick, handleRemoveClick);
+    });
+}
+
+if (localStorage.length > 0) {
+    checkoutButton.textContent = "Till kassan:";
+    checkoutButton.classList.remove("disable-link");
+}
+else
+{
+    checkoutButton.textContent = "Till kassan";
+    checkoutButton.classList.add("disable-link");
+}
+
+updateCategories();
+updateCounter(LocalStorage.Get("shoppingCart"));
