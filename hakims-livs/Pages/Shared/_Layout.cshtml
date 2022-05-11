@@ -3,7 +3,7 @@
 @using hakims_livs.Models
 @inject SignInManager<Customer> SignInManager
 @inject UserManager<Customer> UserManager
-
+@model hakims_livs.Pages.IndexModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +43,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                        <li>
+                          <form>
+                          <label for="SearchTerm"></label>
+                          <input type="text" asp-for="SearchString" />
+                          @*<input type="submit" value="filter" />*@
+
+                          </form>
                         </li>
                     </ul>
                     @if (!User.IsInRole("admin"))
