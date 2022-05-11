@@ -22,10 +22,21 @@ namespace hakims_livs.Pages
 
         public IList<Product> Product { get;set; }
         public IList<Category> Category { get;set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
 
         public async Task OnGetAsync()
         {
-            Product = await _context.Products.ToListAsync();
+           // Product = await _context.Products.ToListAsync();
+            var products = from product in _context.Products select product;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                products = products.Where(p => p.Name.Contains(SearchString));
+            }
+
+            Product = await products.ToListAsync();
+
             Category = await _context.Categories.ToListAsync();
         }
 
