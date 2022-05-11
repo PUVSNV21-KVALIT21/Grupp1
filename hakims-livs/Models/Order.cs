@@ -8,8 +8,6 @@ namespace hakims_livs.Models
         public Customer? Customer { get; set; }
         public List<OrderRow> OrderRows { get; set; }
         public DateTime OrderDate { get; set; }
-        [Column(TypeName = "decimal(18,4)")]
-        public decimal Total { get; set; }
         
         public Order()
         {

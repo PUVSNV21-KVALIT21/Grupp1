@@ -1,3 +1,5 @@
+import LocalStorage from "./localStorage.js";
+
 export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
     const checkOutItems = [];
     const ids = [];
@@ -18,6 +20,8 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
             ids.push(product.id)
         }
     })
+    
+    LocalStorage.Set('order', checkOutItems)
     
     let totalPrice = 0;
     checkOutItems.forEach(item => {

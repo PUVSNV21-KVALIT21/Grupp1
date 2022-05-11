@@ -34,7 +34,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ProductsID");
 
-                    b.ToTable("CategoryProduct", (string)null);
+                    b.ToTable("CategoryProduct");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Address", b =>
@@ -59,7 +59,7 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Adresses", (string)null);
+                    b.ToTable("Adresses");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Category", b =>
@@ -76,7 +76,7 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
@@ -159,13 +159,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "47b3c1ed-9538-458f-9608-f239e6f8f216",
+                            ConcurrencyStamp = "1fbf73fd-23af-4945-b69c-5130c40fb7aa",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAEmAiWpgOOqhhFsyZGYEHA0QpBkcqndVf8R3EgJPAHgiiBithfnMA7jPzJrx6yfsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAWBBO+uq/REYIYX3Y/XYNv3KOTVSAKYGAfoBZ/FiHSvExJQjLCiKyOceZuqGJAxKg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -187,14 +187,11 @@ namespace hakims_livs.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,4)");
-
                     b.HasKey("ID");
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.OrderRow", b =>
@@ -223,7 +220,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderRow", (string)null);
+                    b.ToTable("OrderRow");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Product", b =>
@@ -293,7 +290,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>
@@ -311,7 +308,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -344,7 +341,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "ebd53da7-27c5-4f86-9e9d-ceb9d2f55497",
+                            ConcurrencyStamp = "da3e103e-586e-419b-a019-b05dbb8e0065",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
@@ -479,7 +476,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ShoppingCartsID");
 
-                    b.ToTable("ProductShoppingCart", (string)null);
+                    b.ToTable("ProductShoppingCart");
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>

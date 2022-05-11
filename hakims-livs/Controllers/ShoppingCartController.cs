@@ -2,22 +2,54 @@
 using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hakims_livs.Controllers
 {
+    [Authorize]
     [Route("api/placeorder")]
     [ApiController]
     public class ShoppingCartController : ControllerBase
     {
+        private AccessControl _accessControl;
+        private ApplicationDbContext _context;
+
+        public ShoppingCartController(AccessControl accessControl, ApplicationDbContext context)
+        {
+            _accessControl = accessControl;
+            _context = context;
+        }
         [HttpPost]
-        public ActionResult GetShoppingcartItems(Root root)
+        public async Task<ActionResult> GetShoppingcartItems(Root root)
         {
             if (ModelState.IsValid)
             {
+                Customer currentUser = await _accessControl.GetCurrentUserAsync();
+
+                if (currentUser.Id == null)
+                {
+                    return Content("Error");
+                }
+                var order = new Order
+                {
+                    Customer = currentUser,
+                    OrderDate = DateTime.Now
+                };
+
                 foreach(var item in root.ShoppingCart)
                 {
-
+                    var product = await _context.Products.FirstOrDefaultAsync(p => p.ID == item.productID);
+                    var orderRow = new OrderRow();
+                    orderRow.Price = product.SalesPrice;
+                    orderRow.Product = product;
+                    orderRow.Quantity = item.quantity;
+                    orderRow.Order = order;
+                    order.OrderRows.Add(orderRow);
                 }
+
+                _context.Orders.Add(order);
+                await _context.SaveChangesAsync();
+
                 return Content("OK");
 
                 //return RedirectToPage("./Index");
@@ -36,5 +68,6 @@ namespace hakims_livs.Controllers
     public class ShoppingCart
     {
         public int productID { get; set; }
+        public int quantity { get; set; }
     }
 }
