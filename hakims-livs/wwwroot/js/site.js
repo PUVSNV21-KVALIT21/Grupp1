@@ -8,6 +8,7 @@ const main = document.getElementById("site")
 const modalContainer = document.getElementById("modal-container")
 const checkoutButton = document.getElementById("checkoutButton")
 const checkoutContainer = document.querySelector('.checkoutContainer');
+const makeOrderButton = document.getElementById("MakeOrderButton");
 
 const categoriesContainer = document.querySelector(".categories-container")
 const productCards = document.querySelectorAll(".card-product");
@@ -110,6 +111,7 @@ else
     checkoutButton.classList.add("disable-link");
 }
 
+
 const handleCheckoutAddItem = async (e) => {
     let itemsInCart = LocalStorage.Get("shoppingCart");
     if (!itemsInCart) itemsInCart = []
@@ -148,6 +150,35 @@ function renderCheckoutContainer(){
 
 if (checkoutContainer){
     renderCheckoutContainer();
+
+makeOrderButton.onclick = function () {
+
+    const products = LocalStorage.Get("shoppingCart");
+
+    var ShoppingCartItems = new Array();
+
+    products.forEach(element => {
+        var obj = {
+            'productID': element.id
+        };
+
+        ShoppingCartItems.push(obj);
+    });
+
+    (async () => {
+        const rawResponse = await fetch('api/placeorder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "ShoppingCart": ShoppingCartItems })
+        });
+        const response = rawResponse.statusText;
+        if (response === "OK") {
+            alert("Done");
+
+        }
+        else { alert("Something went wrong") }
+    })();
+
 }
 
 updateCategories();

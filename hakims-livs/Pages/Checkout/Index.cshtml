@@ -6,8 +6,11 @@
 }
 
 <h4>Dina varor</h4>
+
 <div class="checkoutContainer"></div>
-<button class="btn btn-primary" >Betala</button>
+<button class="btn btn-primary" id="MakeOrderButton">Betala</button>
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
