@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Products" />
-    <Folder Include="wwwroot\uploads" />
+    <Folder Include="wwwroot\images" />
   </ItemGroup>
 
   <ItemGroup>

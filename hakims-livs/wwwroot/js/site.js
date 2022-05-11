@@ -1,11 +1,13 @@
 ﻿import {createModal, updateModal, updateModalButtons} from "./components/modal.js";
 import { Api } from "./components/api.js";
 import LocalStorage from "./components/localStorage.js";
+import {CheckoutList} from "./components/checkoutList.js";
 
 const cartCounter = document.querySelector('.shoppingCart-counter')
 const main = document.getElementById("site")
 const modalContainer = document.getElementById("modal-container")
 const checkoutButton = document.getElementById("checkoutButton")
+const checkoutContainer = document.querySelector('.checkoutContainer');
 
 const categoriesContainer = document.querySelector(".categories-container")
 const productCards = document.querySelectorAll(".card-product");
@@ -18,7 +20,6 @@ productCards.forEach(card => {
 async function updateCategories() {
     const response = await fetch('/api/Categories');
     const categories = await response.json();
-    console.log(categories)
     categories.forEach((category) => {
         const categoryElement = document.createElement('a');
         categoryElement.classList.add("nav-link")
@@ -107,6 +108,46 @@ else
 {
     checkoutButton.textContent = "Till kassan";
     checkoutButton.classList.add("disable-link");
+}
+
+const handleCheckoutAddItem = async (e) => {
+    let itemsInCart = LocalStorage.Get("shoppingCart");
+    if (!itemsInCart) itemsInCart = []
+    const product = await Api.getProduct(e.target.id)
+    itemsInCart.push(product)
+    LocalStorage.Set("shoppingCart", itemsInCart)
+    updateCounter(itemsInCart)
+    renderCheckoutContainer();
+}
+
+const handleCheckoutRemoveItem = async (e) => {
+    let itemsInCart = LocalStorage.Get("shoppingCart");
+    if (!itemsInCart) return
+    const product = await Api.getProduct(e.target.id)
+    let removed = false;
+    const updatedCart = [];
+    itemsInCart.forEach((p) => {
+        if (!removed && p.id === product.id)
+            removed = true;
+        else updatedCart.push(p)
+
+    })
+    LocalStorage.Set("shoppingCart", updatedCart)
+    updateCounter(updatedCart)
+    renderCheckoutContainer();
+}
+
+function renderCheckoutContainer(){
+    while (checkoutContainer.firstChild) {
+        checkoutContainer.removeChild(checkoutContainer.lastChild);
+    }
+    const products = LocalStorage.Get("shoppingCart")
+    const checkoutList = CheckoutList(products, handleCheckoutAddItem, handleCheckoutRemoveItem)
+    checkoutContainer.appendChild(checkoutList)
+}
+
+if (checkoutContainer){
+    renderCheckoutContainer();
 }
 
 updateCategories();

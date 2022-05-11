@@ -87,10 +87,7 @@ export const updateModalButtons = (parent, product, onAddClick, onRemoveClick) =
             cartContainsProduct = true;
         }
     })
-    console.log(cartContainsProduct)
-    console.log(cart)
     if (cartContainsProduct) {
-        console.log("IN CART")
         parent.appendChild(removeButton);
         parent.appendChild(buyButton)
         buyButton.textContent = "+"
