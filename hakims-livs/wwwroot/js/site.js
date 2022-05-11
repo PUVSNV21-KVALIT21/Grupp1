@@ -4,6 +4,8 @@ import LocalStorage from "./components/localStorage.js";
 import {CheckoutList} from "./components/checkoutList.js";
 
 const cartCounter = document.querySelector('.shoppingCart-counter')
+
+
 const main = document.getElementById("site")
 const modalContainer = document.getElementById("modal-container")
 const checkoutButton = document.getElementById("checkoutButton")
@@ -42,7 +44,7 @@ const updateCounter = (itemsInCart) => {
         const price = item.salesPrice;
         if (price) value = value + price
     })
-    cartCounter.textContent = value > 0 ? value + "kr" : "";
+    cartCounter.textContent = value > 0 ? value + " kr" : "";
 }
 
 
@@ -102,12 +104,10 @@ const handleProductClick = (e, id) => {
 }
 
 if (localStorage.length > 0) {
-    checkoutButton.textContent = "Till kassan:";
     checkoutButton.classList.remove("disable-link");
 }
 else
 {
-    checkoutButton.textContent = "Till kassan";
     checkoutButton.classList.add("disable-link");
 }
 

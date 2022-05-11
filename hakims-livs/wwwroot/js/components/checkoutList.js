@@ -57,12 +57,17 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
         const addButton = document.createElement('button');
         addButton.className = "btn btn-primary btn-sm btn-checkout"
         addButton.id = item.productId;
-        addButton.textContent = "Lägg till";
+        const addIcon = document.createElement('i')
+        addIcon.className = "fa fa-plus"
+        addButton.appendChild(addIcon);
         addButton.addEventListener('click', handleAddClick)
+        
         const removeButton = document.createElement('button');
+        const removeIcon = document.createElement('i')
+        removeIcon.className = "fa fa-minus"
+        removeButton.appendChild(removeIcon);
         removeButton.className = "btn btn-primary btn-sm btn-checkout"
         removeButton.id = item.productId;
-        removeButton.textContent = "Ta bort";
         removeButton.addEventListener('click', handleRemoveClick)
         
         itemElement.appendChild(imageDiv)

@@ -29,5 +29,11 @@ namespace hakims_livs.Data
             return await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
         }
 
+        public async Task<string> GetDisplayName()
+        {
+            var customer = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
+            return customer.FirstName ?? customer.Email;
+        }
+
     }
 }
