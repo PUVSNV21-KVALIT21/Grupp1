@@ -162,14 +162,12 @@ if (checkoutContainer) {
                 body: JSON.stringify({"ShoppingCart": products})
             });
             if (rawResponse.redirected === true){
+                const url = rawResponse.url;
+                
                 window.location.replace(rawResponse.url);
             }
             const response = rawResponse.statusText;
-            console.log(rawResponse)
-            if (response === "OK") {
-                alert("Done");
-
-            } else {
+            if (response !== "OK") {
                 alert("Something went wrong")
             }
         })();

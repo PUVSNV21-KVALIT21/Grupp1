@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace hakims_livs.Controllers
 {
-    [Authorize]
     [Route("api/placeorder")]
     [ApiController]
     public class ShoppingCartController : ControllerBase
@@ -22,14 +21,14 @@ namespace hakims_livs.Controllers
         [HttpPost]
         public async Task<ActionResult> GetShoppingcartItems(Root root)
         {
+            Customer currentUser = await _accessControl.GetCurrentUserAsync();
+            if (currentUser == null)
+            {
+                return Redirect("../Identity/Account/Login?ReturnUrl=%2FCheckout");
+            }
             if (ModelState.IsValid)
             {
-                Customer currentUser = await _accessControl.GetCurrentUserAsync();
 
-                if (currentUser.Id == null)
-                {
-                    return Content("Error");
-                }
                 var order = new Order
                 {
                     Customer = currentUser,
@@ -49,10 +48,8 @@ namespace hakims_livs.Controllers
 
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
-
-                return Content("OK");
-
-                //return RedirectToPage("./Index");
+                
+                return Redirect("../Orders/Details?id=" + order.ID);
             }
 
             return Content("Error");
