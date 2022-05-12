@@ -1,0 +1,46 @@
+@page
+@model hakims_livs.Pages.Orders.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Tack för din beställning!</h2>
+
+<div>
+    <h4>Här är din beställning från den @Html.DisplayFor(model => model.Order.OrderDate)</h4>
+    <hr />
+
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+                    <th>
+                        Produkt
+                    </th>
+        <th>
+            Antal
+        </th>
+        <th>
+            Pris
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order.OrderRows) {
+    <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
