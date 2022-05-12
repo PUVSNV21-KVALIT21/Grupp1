@@ -4,10 +4,11 @@
     ViewData["Title"] = "Hakim´s Livs";
 }
 
-<h1 class="title">Välkommen till Hakim´s Livs</h1>
+<h1 class="title">Välkommen till Hakim Livs</h1>
+
 <div class="product-grid">
 
-    @foreach (var item in Model.Product)
+    @foreach (var item in Model.Products)
     {
         <div class="card card-product" id=@item.ID>
             @if (item.Image != null)
@@ -20,11 +21,11 @@
                         }
             
             <div class="card-body card-product-description">
-                <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h4>
+                <p class="card-title">@Html.DisplayFor(modelItem => item.Name)</p>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
             </div>
             <div class="card-product-footer">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.SalesPrice)kr</h5>
+                <p class="card-title">@Html.DisplayFor(modelItem => item.SalesPrice)kr</p>
 
                 <a href="#" class="btn btn-primary btn-product">Köp</a>
             </div>

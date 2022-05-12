@@ -1,4 +1,4 @@
-﻿using hakims_livs.Models;
+using hakims_livs.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +49,10 @@ public class ApplicationDbContext : IdentityDbContext<Customer>
             RoleId = ROLE_ID,
             UserId = ADMIN_ID
         });
+
+        modelBuilder.Entity<Product>().HasMany(p => p.Categories);
     }
+
+    public DbSet<hakims_livs.Models.OrderRow> OrderRow { get; set; }
 }
 

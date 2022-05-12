@@ -23,7 +23,7 @@ namespace hakims_livs.Pages.Categories
         public Category Category { get; set; }
         public List<Product> Products { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, string searchString = "")
         {
             if (id == null)
             {
@@ -31,7 +31,7 @@ namespace hakims_livs.Pages.Categories
             }
 
             Category = await _context.Categories.Include(c => c.Products).FirstOrDefaultAsync(m => m.ID == id);
-            Products = Category.Products.ToList();
+            Products = Category.Products.Where(product => product.Name.Contains(searchString)).ToList();
 
             if (Category == null)
             {

@@ -1,0 +1,31 @@
+@page
+@model hakims_livs.Pages.Orders.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mina Beställningar</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Beställningsdatum
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.ID">Visa beställning</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -9,21 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
 
-namespace hakims_livs.Pages.Products
+namespace hakims_livs.Pages.Orders
 {
     public class DetailsModel : PageModel
     {
-        private readonly hakims_livs.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(hakims_livs.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Product Product { get; set; }
-        public Category Category { get; set; }
-        public string Categories { get; set; }
-
+        public Order Order { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,14 +29,9 @@ namespace hakims_livs.Pages.Products
                 return NotFound();
             }
 
-            Product = await _context.Products.Include(p => p.Categories).FirstOrDefaultAsync(m => m.ID == id);
+            Order = await _context.Orders.Include(o => o.OrderRows).ThenInclude(or => or.Product).FirstOrDefaultAsync(m => m.ID == id);
 
-            foreach(var cat in Product.Categories)
-            {
-                Categories += cat.Name + "  ";
-            }
-
-            if (Product == null)
+            if (Order == null)
             {
                 return NotFound();
             }

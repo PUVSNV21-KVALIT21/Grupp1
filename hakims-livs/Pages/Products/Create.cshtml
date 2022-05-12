@@ -66,6 +66,43 @@
                 <span asp-validation-for="Product.Unit" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Categories</label>
+                <select class="form-control" asp-for="SelectedCategories" asp-items="Model.CategoryOptions"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.IsEco" class="control-label">Is Eco</label>
+                <input asp-for="Product.IsEco" type="checkbox" value="true" name="Product.IsEco" />
+                <input type="hidden" value="false" name="Product.IsEco" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.IsVegan" class="control-label">Is Vegan</label>
+                <input asp-for="Product.IsVegan" type="checkbox" value="true" name="Product.IsVegan" />
+                <input type="hidden" value="false" name="Product.IsVegan" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.IsGluten" class="control-label">Is Gluten</label>
+                <input asp-for="Product.IsGluten" type="checkbox" value="true" name="Product.IsGluten" />
+                <input type="hidden" value="false" name="Product.IsGluten" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.ExpiryDate" class="control-label"></label>
+                <input asp-for="Product.ExpiryDate" class="form-control" />
+                <span asp-validation-for="Product.ExpiryDate" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Brand" class="control-label"></label>
+                <input asp-for="Product.Brand" class="form-control" />
+                <span asp-validation-for="Product.Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Origin" class="control-label"></label>
+                <input asp-for="Product.Origin" class="form-control" />
+                <span asp-validation-for="Product.Origin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
