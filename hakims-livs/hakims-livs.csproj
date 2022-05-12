@@ -93,4 +93,12 @@
     <Content Remove="wwwroot\js\components\subject.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\ShoppingCarts\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ShoppingCarts\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ShoppingCarts\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ShoppingCarts\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ShoppingCarts\Index.cshtml" />
+  </ItemGroup>
+
 </Project>
