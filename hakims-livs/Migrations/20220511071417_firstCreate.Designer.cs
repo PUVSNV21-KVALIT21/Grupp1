@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hakims_livs.Data;
 
@@ -11,9 +12,10 @@ using hakims_livs.Data;
 namespace hakims_livs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220511071417_firstCreate")]
+    partial class firstCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,13 +162,12 @@ namespace hakims_livs.Migrations
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "cca16963-6fb2-4db7-a655-696504bc65c0",
-
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAWBBO+uq/REYIYX3Y/XYNv3KOTVSAKYGAfoBZ/FiHSvExJQjLCiKyOceZuqGJAxKg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPuuR1+96O1/+A88K0xO7os7BYOGhcQqriwmS02giDWZhMdi3dEL0NSW7GcJ99qNhQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -187,6 +188,9 @@ namespace hakims_livs.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ID");
 

@@ -22,9 +22,11 @@ namespace hakims_livs.Pages.Products
 
         public IList<Product> Product { get;set; }
 
+
         public async Task OnGetAsync()
         {
             Product = await _context.Products.ToListAsync();
         }
+       
     }
 }
