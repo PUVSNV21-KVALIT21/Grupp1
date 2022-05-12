@@ -12,13 +12,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace hakims_livs.Pages.Checkout
 {
-    [Authorize]
+
     public class IndexModel : PageModel
     {
-        public OrderRow OrderRow { get; set; }
-        public Order Order { get; set; }
-        public Customer Customer { get; set; }
-        public Product Product { get; set; }    
 
         private readonly ApplicationDbContext _context;
 

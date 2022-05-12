@@ -1,31 +1,15 @@
 ﻿@page
-@model hakims_livs.Pages.Checkout.IndexModel
+@model hakims_livs.Models.Product
 
 @{
     ViewData["Title"] = "Kassan";
 }
 
 <h4>Dina varor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="OrderRow.Quantity" class="control-label"></label>
-                <input asp-for="OrderRow.Quantity" class="form-control" />
-                <span asp-validation-for="OrderRow.Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input id="MakeOrderButton" type="submit" value="Lägg beställning" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+<div class="checkoutContainer"></div>
+<button class="btn btn-primary" id="MakeOrderButton">Betala</button>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
