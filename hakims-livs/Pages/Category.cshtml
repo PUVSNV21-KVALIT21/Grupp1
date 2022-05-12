@@ -10,7 +10,7 @@
 <div class="product-grid">
     @if (Model.Category.Products != null)
     {
-        @foreach (var item in Model.Category.Products)
+        @foreach (var item in Model.Products)
         {
             <div class="card card-product" id=@item.ID>
                 @if (item.Image != null)

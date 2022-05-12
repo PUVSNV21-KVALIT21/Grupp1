@@ -22,6 +22,16 @@ body {
   background-color: var(--color-grey)
 }
 
+main {
+  margin-right: 64px;
+}
+
+header {
+  z-index: 3;
+  width: 100%;
+  position: fixed;
+}
+
 .card-product{
   justify-content: space-between;
   padding: 0.5rem;
@@ -191,7 +201,9 @@ div.single-result div.image {
   justify-content: space-around;
 }
 
+
 .main-grid{
+  padding-top: 64px;
   display: flex;
 }
 
@@ -248,4 +260,60 @@ img.modal-image  {
 
 .disable-link {
     pointer-events: none;
+}
+
+.checkoutItem{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-checkout{
+  text-align: center;
+  margin-left: 10px;
+}
+
+.banner-container{
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.banner-image{
+  object-fit: cover;
+  width: 100%
+}
+.checkoutItem{
+  max-width: 500px;
+  padding: 8px;
+  background-color: white;
+  margin-bottom: 16px;
+}
+
+
+.checkoutList{
+  display: flex;
+  flex-direction: column;
+}
+
+.checkoutList-image-container{
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+}
+
+.checkoutList-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.checkoutList-controls{
+  
+}
+
+.logo{
+  height: 32px;
 }

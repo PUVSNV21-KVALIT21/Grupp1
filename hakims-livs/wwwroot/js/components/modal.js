@@ -74,7 +74,9 @@ export const updateModalButtons = (parent, product, onAddClick, onRemoveClick) =
     }
     const buyButton = document.createElement("button")
     const removeButton = document.createElement("button")
+
     buyButton.addEventListener("click", onAddClick)
+    
     removeButton.addEventListener("click", onRemoveClick)
     buyButton.className = "btn btn-primary btn-product btn-product-add"
     buyButton.id = product.id
@@ -87,14 +89,18 @@ export const updateModalButtons = (parent, product, onAddClick, onRemoveClick) =
             cartContainsProduct = true;
         }
     })
-    console.log(cartContainsProduct)
-    console.log(cart)
     if (cartContainsProduct) {
-        console.log("IN CART")
         parent.appendChild(removeButton);
         parent.appendChild(buyButton)
-        buyButton.textContent = "+"
-        removeButton.textContent = "-"
+
+        const addIcon = document.createElement('i')
+        addIcon.className = "fa fa-plus"
+        buyButton.appendChild(addIcon);
+        
+        const removeIcon = document.createElement('i')
+        removeIcon.className = "fa fa-minus"
+        removeButton.appendChild(removeIcon);
+        
     } else {
         parent.appendChild(buyButton)
         buyButton.textContent = "Köp"

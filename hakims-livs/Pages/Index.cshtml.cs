@@ -19,14 +19,17 @@ namespace hakims_livs.Pages
         {
             _context = context;
         }
-
-        public IList<Product> Product { get;set; }
+        
+        public IList<Product> Products { get;set; }
         public IList<Category> Category { get;set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString = "")
         {
-            Product = await _context.Products.ToListAsync();
-            Category = await _context.Categories.ToListAsync();
+
+            Products = await _context.Products.Where(product => product.Name.Contains(searchString)).ToListAsync();
+            
         }
 
         
