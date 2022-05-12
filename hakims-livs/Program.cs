@@ -4,17 +4,11 @@ using hakims_livs.Data;
 using hakims_livs.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using hakims_livs.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
-//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
-
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));;
-
-//builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>();;
 
 // Add services to the container.
 
@@ -68,8 +62,10 @@ using (var scope = app.Services.CreateScope())
 
     var context = services.GetRequiredService<ApplicationDbContext>();
     var env = services.GetRequiredService<IWebHostEnvironment>();
+    var usermanager = services.GetRequiredService<UserManager<Customer>>();
     context.Database.EnsureCreated();
     DbInitializer.Initialize(context, env);
+    await DbInitializer.CreateUser(context, usermanager, 10);
 }
 
 app.UseHttpsRedirection();
