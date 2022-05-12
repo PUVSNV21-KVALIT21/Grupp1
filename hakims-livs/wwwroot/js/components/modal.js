@@ -95,10 +95,12 @@ export const updateModalButtons = (parent, product, onAddClick, onRemoveClick) =
 
         const addIcon = document.createElement('i')
         addIcon.className = "fa fa-plus"
+        addIcon.id = product.id
         buyButton.appendChild(addIcon);
         
         const removeIcon = document.createElement('i')
         removeIcon.className = "fa fa-minus"
+        removeIcon.id = product.id
         removeButton.appendChild(removeIcon);
         
     } else {
