@@ -3,7 +3,6 @@
 @using hakims_livs.Models
 @inject SignInManager<Customer> SignInManager
 @inject UserManager<Customer> UserManager
-@model hakims_livs.Pages.IndexModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +31,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li>
                                                   <form id ="searchForm">
-                                                  <label for="SearchTerm"></label>
+                                                  <label for="searchInput"></label>
                                                   <input type="text" id="searchInput" />
                                                   <input type="submit" value="Sök" />
                                                   </form>
