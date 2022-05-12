@@ -203,6 +203,7 @@ div.single-result div.image {
 
 
 .main-grid{
+  padding-top: 64px;
   display: flex;
 }
 

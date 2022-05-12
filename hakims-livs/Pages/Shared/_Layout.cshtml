@@ -30,6 +30,13 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <li>
+                                                  <form id ="searchForm">
+                                                  <label for="SearchTerm"></label>
+                                                  <input type="text" id="searchInput" />
+                                                  <input type="submit" value="Sök" />
+                                                  </form>
+                                                </li>
                         <li class="nav-item">
                             @if (User.IsInRole("admin"))
                             {

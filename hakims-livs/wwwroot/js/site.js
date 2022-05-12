@@ -11,6 +11,24 @@ const modalContainer = document.getElementById("modal-container")
 const checkoutButton = document.getElementById("checkoutButton")
 const checkoutContainer = document.querySelector('.checkoutContainer');
 const makeOrderButton = document.getElementById("MakeOrderButton");
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log(searchInput.value);
+    let url = "";
+    let newUrl = "";
+    if (window.location.href.includes("?id=")){
+        url = window.location.href.split('&')[0];
+        newUrl = url + "&searchString=" + searchInput.value;
+    } else {
+        url = window.location.href.split('?')[0];
+        newUrl = url + "?searchString=" + searchInput.value;
+    }
+    window.location.replace(newUrl);
+})
+
 
 const categoriesContainer = document.querySelector(".categories-container")
 const productCards = document.querySelectorAll(".card-product");
