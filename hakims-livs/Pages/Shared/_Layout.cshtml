@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @using hakims_livs.Models
 @inject SignInManager<Customer> SignInManager
 @inject UserManager<Customer> UserManager
@@ -46,6 +46,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Mina Beställningar</a>
                                 }
                             </li>
+                                                  <li class="nav-item">
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Customers</a>
+                            }
+                        </li>
                             <li class="nav-item">
                                 @if (User.IsInRole("admin"))
                                 {
@@ -70,7 +76,6 @@
 
                         <partial name="_LoginPartial" />
                     </div>
-                </div>
             </nav>
         </header>
         <div class="main-grid">
