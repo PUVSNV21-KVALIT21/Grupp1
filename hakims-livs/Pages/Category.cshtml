@@ -1,4 +1,5 @@
 ﻿@page
+@using hakims_livs.Utils
 @model hakims_livs.Pages.Categories.DetailsModel
 
 @{
@@ -8,35 +9,67 @@
 <h1 class="title">@Model.Category.Name</h1>
 
 <div class="product-grid">
-    @if (Model.Category.Products != null)
-    {
-        @foreach (var item in Model.Products)
-        {
-            <div class="card card-product" id=@item.ID>
-                @if (item.Image != null)
-                {
-                    <img class="card-img-product" src="~/images/@item.Image" alt="Product Image">
-                }
-                else
-                {
-                    <img class="card-img-product" src="~/assets/ProductPlaceholder.svg">
-                }
-            
-                <div class="card-body card-product-description">
-                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h4>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                </div>
-                <div class="card-product-footer">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.SalesPrice)kr</h5>
 
-                    <a href="#" class="btn btn-primary btn-product">Köp</a>
+    @foreach (var item in Model.Products)
+    {
+        <div class="card card-product" id=@item.ID>
+            @if (item.Image != null)
+                        {
+                            <img class="card-img-product" src="~/images/@item.Image" alt="Product Image">
+                        }
+                        else
+                        {
+                            <img class="card-img-product" src="~/assets/ProductPlaceholder.svg">
+                        }
+            
+            <div class="card-body card-product-description">
+                <div class="card-product-flex-span">
+                    @if (item.Brand != null)
+                    {
+                        <p class="card-text card-text-small"> @Html.DisplayFor(modelItem => item.Brand)</p>
+                    }
+                    else if (item.Categories[0] != null)
+                    {
+                        <p class="card-text card-text-small"> @Html.DisplayFor(modelItem => item.Categories[0].Name)</p>
+                    }
+                    else
+                    {
+                        <p></p>
+                    }
+                    <div>
+                        @if (item.IsGluten)
+                        {
+                            <img class="card-product-icon" src="~/assets/icon_glutenfree.png" alt="gluten free icon">
+                        }
+                        
+                        @if (item.IsVegan)
+                        {
+                            <img class="card-product-icon" src="~/assets/icon_vegan.png" alt="gluten free icon">
+                        }
+                        
+                                                
+                        @if (item.IsEco)
+                        {
+                            <img class="card-product-icon" src="~/assets/icon_eco.png" alt="gluten free icon">
+                        }
+
+                    </div>
+                    
                 </div>
+                <p class="card-product-title">@Html.DisplayFor(modelItem => item.Name)</p>
+                <div class="card-product-flex-span">
+                    <p class="card-text card-text-small">@Html.DisplayFor(modelItem => item.Volume) @Html.DisplayFor(modelItem => item.Unit)</p>
+                    <p class="card-text card-text-small">@Html.DisplayFor(modelItem => item.Origin)</p>
+                    </div>
             </div>
-        }
+            <div class="card-product-footer">
+                <p class="card-product-price">
+                    @FormatPrice.ToString(item.SalesPrice):-
+                </p>
+
+                <a href="#" class="btn btn-primary btn-product">Köp</a>
+            </div>
         
+            </div>
     }
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Category.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
 </div>
