@@ -2,6 +2,7 @@ namespace hakims_livs.Utils;
 
 public static class FormatPrice
 {
+    
     public static string ToString(decimal value)
     {
         var price = value.ToString("F");
