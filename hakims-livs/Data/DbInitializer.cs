@@ -42,9 +42,12 @@ public static class DbInitializer
                     Image = "clementine.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 15, 
+                    Stock = 250,
                     CreatedDateTime= DateTime.Parse("2019-11-12"),
                     Origin = "Frankrike",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
@@ -53,9 +56,12 @@ public static class DbInitializer
                     Image = "apple.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 33, 
+                    Stock = 300,
                     CreatedDateTime= DateTime.Parse("2021-09-01"),
                     Origin = "Skåne",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                     
                 },
                 new Product
@@ -65,10 +71,12 @@ public static class DbInitializer
                     Image = "cherry.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 30,
-                    Stock = 500,
+                    Stock = 1250,
                     CreatedDateTime= DateTime.Parse("2020-09-01"),
                     Origin = "Spanien",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
@@ -77,32 +85,39 @@ public static class DbInitializer
                     Image = "pineapple.jpg", 
                     Volume = 1,
                     Unit = Unit.st, SalesPrice = 59, 
-                    Stock = 500,
+                    Stock = 35,
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
                     Origin = "Costa Rica",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
-                    Name= "Jordgubbe",
+                    Name= "Jordgubbar",
                     Description= "Sommarklassiker", 
                     Image = "strawberry.jpg", 
                     Volume = 500, 
-                    Unit = Unit.gram, SalesPrice = 25, 
+                    Unit = Unit.gram, SalesPrice = 500, 
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
                     Origin = "Sverige",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
+                    IsEco = true
                 },
                 new Product
                 {
                     Name= "Päron",
                     Description= "Höstfrukt", 
                     Image = "pear.jpg", 
-                    Volume = 500, 
-                    Unit = Unit.gram, SalesPrice = 25, 
+                    Volume = 1000, 
+                    Unit = Unit.gram, SalesPrice = (decimal) 39.90, 
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
                     Origin = "Sverige",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
@@ -113,18 +128,23 @@ public static class DbInitializer
                     Unit = Unit.st, SalesPrice = 15, 
                     CreatedDateTime= DateTime.Parse("2021-10-21"),
                     Origin = "Argentina",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
                     Name= "Fikon",
                     Description= "Kort Hållbarhet", 
                     Image = "fig.jpg", 
-                    Volume = 2, 
-                    Unit = Unit.st, SalesPrice = 20, 
+                    Volume = 500, 
+                    Unit = Unit.gram, SalesPrice = (decimal) 19.90, 
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
                     Origin = "Turkiet",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
+                    IsEco = true
                 },
                 new Product
                 {
@@ -132,21 +152,26 @@ public static class DbInitializer
                     Description= "Knölig rot", 
                     Image = "ginger.jpg", 
                     Volume = 500, 
-                    Unit = Unit.gram, SalesPrice = 39, 
+                    Unit = Unit.gram, SalesPrice = 45, 
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
                     Origin = "Sri Lanka",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
                     Name= "Avocado",
                     Description= "Extra pris!", 
                     Image = "avocado.jpg", 
-                    Volume = 500, 
-                    Unit = Unit.st, SalesPrice = 10, 
+                    Volume = 2, 
+                    Unit = Unit.st, SalesPrice = (decimal)44.50, 
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
                     Origin = "Mexiko",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
+                    IsEco = true
                 },
                 new Product
                 {
@@ -154,10 +179,12 @@ public static class DbInitializer
                     Description= "Kärnfria", 
                     Image = "grapes.jpg", 
                     Volume = 500, 
-                    Unit = Unit.st, SalesPrice = 29, 
+                    Unit = Unit.gram, SalesPrice = 29, 
                     CreatedDateTime= DateTime.Parse("2021-12-21"),
                     Origin = "Frankrike",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
@@ -168,18 +195,23 @@ public static class DbInitializer
                     Unit = Unit.gram, SalesPrice = 19, 
                     CreatedDateTime= DateTime.Parse("2021-04-21"),
                     Origin = "Colombia",
-                    Categories = new List<Category>{fruktOchGront}
+                    Categories = new List<Category>{fruktOchGront},
+                    IsVegan = true,
+                    IsGluten = true,
                 },
                 new Product
                 {
                     Name= "Mjölk",
                     Description= "Fetthalt 3.5%", 
-                    Image = "milk.jpg", 
+                    Image = "milk.jpg",
+                    Brand = "Arla",
                     Volume = 1000, 
-                    Unit = Unit.gram, SalesPrice = 19, 
+                    Unit = Unit.ml, SalesPrice = 19, 
                     CreatedDateTime= DateTime.Parse("2021-04-21"),
-                    Origin = "Colombia",
-                    Categories = new List<Category>{mejeriprodukter}
+                    Origin = "Sverige",
+                    Categories = new List<Category>{mejeriprodukter},
+                    IsGluten = true,
+                    IsEco = true
                 },
             };
 
