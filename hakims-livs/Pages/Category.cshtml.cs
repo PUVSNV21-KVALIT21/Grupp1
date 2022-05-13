@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +30,10 @@ namespace hakims_livs.Pages.Categories
                 return NotFound();
             }
 
+
             Category = await _context.Categories.Include(c => c.Products).ThenInclude(p => p.Categories).FirstOrDefaultAsync(m => m.ID == id);
-            Products = Category.Products.Where(product => product.Name.Contains(searchString)).ToList();
+            Products = Category.Products.Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
+
 
             if (Category == null)
             {

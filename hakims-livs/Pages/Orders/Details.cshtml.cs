@@ -21,6 +21,7 @@ namespace hakims_livs.Pages.Orders
         }
 
         public Order Order { get; set; }
+        public decimal OrderSum { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +30,14 @@ namespace hakims_livs.Pages.Orders
                 return NotFound();
             }
 
-            Order = await _context.Orders.Include(o => o.OrderRows).ThenInclude(or => or.Product).FirstOrDefaultAsync(m => m.ID == id);
+            Order = await _context.Orders.Include(o => o.Customer).Include(o => o.OrderRows).ThenInclude(or => or.Product).FirstOrDefaultAsync(m => m.ID == id);
+
+            foreach (var item in Order.OrderRows)
+            {
+                OrderSum += item.Price;
+            }
+
+            OrderSum = decimal.Round(OrderSum, 2);
 
             if (Order == null)
             {

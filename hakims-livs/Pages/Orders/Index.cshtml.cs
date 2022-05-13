@@ -27,7 +27,16 @@ namespace hakims_livs.Pages.Orders
         public async Task OnGetAsync()
         {
             var customer = await _accessControl.GetCurrentUserAsync();
-            Order = await _context.Orders.Where(o => o.Customer == customer).ToListAsync();
+
+            if(customer.Email == "admin@gmail.com")
+            {
+                Order = await _context.Orders.Include(o => o.Customer).ToListAsync();
+            }
+            else
+            {
+                Order = await _context.Orders.Include(o => o.Customer).Where(o => o.Customer == customer).ToListAsync();
+
+            }
         }
     }
 }

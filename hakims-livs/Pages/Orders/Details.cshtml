@@ -1,46 +1,132 @@
 @page
+@using hakims_livs.Models
 @model hakims_livs.Pages.Orders.DetailsModel
-
+@inject SignInManager<Customer> SignInManager
+@inject UserManager<Customer> UserManager
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Tack för din beställning!</h2>
+@if (User.IsInRole("admin"))
+{
+    <h2>Beställnings Number: @Html.DisplayFor(model => model.Order.ID)</h2>
 
-<div>
-    <h4>Här är din beställning från den @Html.DisplayFor(model => model.Order.OrderDate)</h4>
-    <hr />
+    <h3>Kund Information</h3>
 
-</div>
+     <table class="table">
+         <thead>
+              <th>
+                    Kundnamn
+                </th>
+                <th>
+                    Kund Telefonnummer
+                </th>
+                <th>
+                    Kund Address
+                </th>
+                <th>
+                    Kund Email
+                </th>
+         </thead>
+        <tbody>
+            <tr>
+               
+                 <td>
+                        @Html.DisplayFor(model => model.Order.Customer.FirstName)  @Html.DisplayFor(model => model.Order.Customer.LastName)
+                    </td>
+                     <td>
+                       @Html.DisplayFor(model => model.Order.Customer.PhoneNumber)
+                    </td>
+                  <td>
+                       @Html.DisplayFor(model => model.Order.Customer.Address)
+                    </td>
+                 <td>
+                        @Html.DisplayFor(model => model.Order.Customer.Email)
+                    </td>
+            </tr>
+        </tbody>
+    </table>
 
-<table class="table">
-    <thead>
-    <tr>
-                    <th>
-                        Produkt
-                    </th>
-        <th>
-            Antal
-        </th>
-        <th>
-            Pris
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Order.OrderRows) {
-    <tr>
+    <h3>Beställning</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Produkt
+                </th>
+                <th>
+                    Antal
+                </th>
+                <th>
+                    Pris
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Order.OrderRows)
+            {
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Product.Name)
                     </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-    </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h2>Summa: @Model.OrderSum</h2>
+    <a asp-page="./Edit" asp-route-id="@Model.Order.ID">Ändra</a> 
+    <a asp-page="./Delete" asp-route-id="@Model.Order.ID">Ta Bort</a> 
+
 }
-    </tbody>
-</table>
+else
+{
+
+    <div>
+        <h4>Här är din beställning från den @Html.DisplayFor(model => model.Order.OrderDate)</h4>
+        <hr />
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Produkt
+                </th>
+                <th>
+                    Antal
+                </th>
+                <th>
+                    Pris
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Order.OrderRows)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h2>Summa: @Model.OrderSum</h2>
+
+}
+
+

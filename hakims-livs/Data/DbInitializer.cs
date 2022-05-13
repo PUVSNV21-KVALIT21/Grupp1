@@ -1,18 +1,24 @@
 using hakims_livs.Models;
 using hakims_livs.Utils;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Bogus;
+using Microsoft.EntityFrameworkCore;
 
 namespace hakims_livs.Data;
 
-public class DbInitializer
+public static class DbInitializer
 {
     public static void Initialize(ApplicationDbContext context, IWebHostEnvironment environment)
     {
+            // InitializeCustomers(context, userManager);
+            
             if (context.Products.Any())
             {
                 return;   // DB has been seeded
             }
-            
+
+
             // Copy example data images to wwwRoot folder
             var destinationDir = environment.WebRootPath + "/images/";
             var sourceDir = "./Images";
@@ -209,7 +215,6 @@ public class DbInitializer
             context.Categories.AddRange(categories);
             context.Products.AddRange(products);
             context.SaveChanges();
-
         }
 
     private static void CopyDirectory(string sourceDir, string destinationDir)
@@ -238,6 +243,51 @@ public class DbInitializer
         foreach (FileInfo file in destDir.GetFiles())
         {
             file.Delete();
+        }
+    }
+
+   /// <summary>
+   /// Adds customers to the database
+   /// </summary>
+   /// <param name="context"></param>
+   /// <param name="userManager"></param>
+   /// <param name="numberOfCustomers">Number of customers to add</param>
+   /// <returns></returns>
+    public static async Task CreateUser(ApplicationDbContext context, UserManager<Customer> userManager, int numberOfCustomers)
+    {
+        if (context.Users.Count() > 1) // Only Admin exists in Customer Db
+        {
+            return;
+        }
+
+        for (int i = 0; i < numberOfCustomers; i++)
+        {
+            Faker _faker = new Faker();
+            var firstName = _faker.Name.FirstName();
+            var lastName = _faker.Name.LastName();
+            var email = firstName + "." + lastName + "@example.com";
+
+            var user = new Customer
+            {
+                UserName = email,
+                NormalizedUserName = email,
+                Email = email,
+                NormalizedEmail = email,
+                EmailConfirmed = true,
+                SecurityStamp = string.Empty,
+                FirstName = firstName,
+                LastName = lastName,
+                PhoneNumber = _faker.Phone.PhoneNumber("####-## ## ##"),
+                Address = new Address
+                {
+                    Street = _faker.Address.StreetName() + " " + _faker.Random.Number(1, 99),
+                    PostalCode = _faker.Address.ZipCode("### ##"),
+                    City = _faker.Address.City(),
+                    Country = _faker.Address.Country()
+                }
+            };
+            await userManager.CreateAsync(user, "Test123!");
+            await context.SaveChangesAsync();
         }
     }
 }
