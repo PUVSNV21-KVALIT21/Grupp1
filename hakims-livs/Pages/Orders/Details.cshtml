@@ -9,7 +9,7 @@
 
 @if (User.IsInRole("admin"))
 {
-    <h2>Order Number: @Html.DisplayFor(model => model.Order.ID)</h2>
+    <h2>Beställnings Number: @Html.DisplayFor(model => model.Order.ID)</h2>
 
     <h3>Kund Information</h3>
 
@@ -82,8 +82,8 @@
         </tbody>
     </table>
     <h2>Summa: @Model.OrderSum</h2>
-    <a asp-page="./Edit" asp-route-id="@Model.Order.ID">Edit</a> 
-    <a asp-page="./Delete" asp-route-id="@Model.Order.ID">Delete</a> 
+    <a asp-page="./Edit" asp-route-id="@Model.Order.ID">Ändra</a> 
+    <a asp-page="./Delete" asp-route-id="@Model.Order.ID">Ta Bort</a> 
 
 }
 else
