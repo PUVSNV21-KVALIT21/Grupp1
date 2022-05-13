@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,8 @@ namespace hakims_livs.Pages
         public async Task OnGetAsync(string searchString = "")
         {
 
-            Products = await _context.Products.Include(p => p.Categories).Where(product => product.Name.Contains(searchString)).ToListAsync();
+
+        Products = await _context.Products.Include(p => p.Categories).Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToListAsync();
             
         }
 
