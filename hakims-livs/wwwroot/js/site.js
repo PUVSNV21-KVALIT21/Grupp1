@@ -203,6 +203,14 @@ function renderCheckoutContainer(){
 
 if (checkoutContainer) {
     renderCheckoutContainer();
+    
+    const clearCartButton = document.getElementById('clearCartButton')
+    
+    clearCartButton.addEventListener('click', () => {
+        LocalStorage.Set('shoppingCart', [])
+        updateCounter([])
+        renderCheckoutContainer();
+    })
 
     makeOrderButton.onclick = function () {
 
