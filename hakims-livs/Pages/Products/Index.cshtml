@@ -41,7 +41,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].Unit)
             </th>
-            <th></th>
+            <th>
+                
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -69,14 +71,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Unit)
                 </td>
-                <td>
+                <td class="icon-controls">
 
-                    <a asp-page="./Details" asp-route-id="@item.ID">Mer info</a>
+                    <a class="btn-sm btn-light" asp-page="./Details" asp-route-id="@item.ID"><i class="fa fa-info" aria-hidden="true"></i></a>
 
                     @if (User.IsInRole("admin"))
                     {
-                        <a asp-page="./Edit" asp-route-id="@item.ID">Ändra</a>
-                        <a asp-page="./Delete" asp-route-id="@item.ID"> Ta Bort </a>
+                        <a class="btn-sm btn-primary" asp-page="./Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a class="btn-sm btn-danger" asp-page="./Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     }
                 </td>
             </tr>

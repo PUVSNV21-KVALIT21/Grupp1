@@ -25,13 +25,15 @@ public static class DbInitializer
 
             ClearDirectory(destinationDir);
             CopyDirectory(sourceDir, destinationDir);
-            var categories = new List<Category>();
-        
-            var fruktOchGront = new Category() {Name = "Frukt & Grönt"};
-            var mejeriprodukter = new Category() {Name = "Mejeriprodukter"};
-            categories.Add(fruktOchGront);
-            categories.Add(mejeriprodukter);
-            
+            var categories = new List<Category>
+            {
+                new Category() {Name = "Frukt & Grönt"},
+                new Category() {Name = "Mejeriprodukter"},
+                new Category() {Name = "Kött & Fisk"},
+                new Category() {Name = "Godis"},
+                new Category() {Name = "Dricka"},
+                new Category() {Name = "Tvätt & Städ"}
+            };
             
             // Seed data
             var products = new Product[] {
@@ -45,7 +47,7 @@ public static class DbInitializer
                     Stock = 250,
                     CreatedDateTime= DateTime.Parse("2019-11-12"),
                     Origin = "Frankrike",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -59,7 +61,7 @@ public static class DbInitializer
                     Stock = 300,
                     CreatedDateTime= DateTime.Parse("2021-09-01"),
                     Origin = "Skåne",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                     
@@ -74,7 +76,7 @@ public static class DbInitializer
                     Stock = 1250,
                     CreatedDateTime= DateTime.Parse("2020-09-01"),
                     Origin = "Spanien",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -88,7 +90,7 @@ public static class DbInitializer
                     Stock = 35,
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
                     Origin = "Costa Rica",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -98,10 +100,11 @@ public static class DbInitializer
                     Description= "Sommarklassiker", 
                     Image = "strawberry.jpg", 
                     Volume = 500, 
-                    Unit = Unit.gram, SalesPrice = 500, 
+                    Unit = Unit.gram, SalesPrice = 500,
+                    Stock = 23,
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
                     Origin = "Sverige",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                     IsEco = true
@@ -113,9 +116,10 @@ public static class DbInitializer
                     Image = "pear.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = (decimal) 39.90, 
+                    Stock = 455,
                     CreatedDateTime= DateTime.Parse("2019-10-01"),
                     Origin = "Sverige",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -126,9 +130,10 @@ public static class DbInitializer
                     Image = "lemon.jpg", 
                     Volume = 1, 
                     Unit = Unit.st, SalesPrice = 15, 
+                    Stock = 233,
                     CreatedDateTime= DateTime.Parse("2021-10-21"),
                     Origin = "Argentina",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -139,9 +144,10 @@ public static class DbInitializer
                     Image = "fig.jpg", 
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = (decimal) 19.90, 
+                    Stock = 12,
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
                     Origin = "Turkiet",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                     IsEco = true
@@ -152,10 +158,11 @@ public static class DbInitializer
                     Description= "Knölig rot", 
                     Image = "ginger.jpg", 
                     Volume = 500, 
-                    Unit = Unit.gram, SalesPrice = 45, 
+                    Unit = Unit.gram, SalesPrice = 45,
+                    Stock = 11,
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
                     Origin = "Sri Lanka",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -166,9 +173,10 @@ public static class DbInitializer
                     Image = "avocado.jpg", 
                     Volume = 2, 
                     Unit = Unit.st, SalesPrice = (decimal)44.50, 
+                    Stock = 3,
                     CreatedDateTime= DateTime.Parse("2021-11-21"),
                     Origin = "Mexiko",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                     IsEco = true
@@ -180,9 +188,10 @@ public static class DbInitializer
                     Image = "grapes.jpg", 
                     Volume = 500, 
                     Unit = Unit.gram, SalesPrice = 29, 
+                    Stock = 23,
                     CreatedDateTime= DateTime.Parse("2021-12-21"),
                     Origin = "Frankrike",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -193,9 +202,10 @@ public static class DbInitializer
                     Image = "bananas.jpg", 
                     Volume = 1000, 
                     Unit = Unit.gram, SalesPrice = 19, 
+                    Stock = 353,
                     CreatedDateTime= DateTime.Parse("2021-04-21"),
                     Origin = "Colombia",
-                    Categories = new List<Category>{fruktOchGront},
+                    Categories = new List<Category>{categories[0]},
                     IsVegan = true,
                     IsGluten = true,
                 },
@@ -207,9 +217,10 @@ public static class DbInitializer
                     Brand = "Arla",
                     Volume = 1000, 
                     Unit = Unit.ml, SalesPrice = 19, 
+                    Stock = 48,
                     CreatedDateTime= DateTime.Parse("2021-04-21"),
                     Origin = "Sverige",
-                    Categories = new List<Category>{mejeriprodukter},
+                    Categories = new List<Category>{categories[1]},
                     IsGluten = true,
                     IsEco = true
                 },

@@ -28,30 +28,30 @@
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
-                            <li>
+                           
                                 <form id="searchForm">
                                     <label for="searchInput"></label>
-                                    <input type="text" id="searchInput" />
+                                    <input type="text" placeholder="Sök..." id="searchInput" />
                                     <input type="submit" value="Sök" />
                                 </form>
-                            </li>
+                            
                             <li class="nav-item">
                                 @if (User.IsInRole("admin"))
                                 {
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Alla Beställningar</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Alla Beställningar</a>
                                     
                                 }
                                 else if (SignInManager.IsSignedIn(User))
                                 {
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Mina Beställningar</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Mina Beställningar</a>
                                 }
                             </li>
-                                                  <li class="nav-item">
-                            @if (User.IsInRole("admin"))
-                            {
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Kunder</a>
-                            }
-                        </li>
+                            <li class="nav-item">
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Kunder</a>
+                                }
+                            </li>
                             <li class="nav-item">
                                 @if (User.IsInRole("admin"))
                                 {
@@ -76,6 +76,7 @@
 
                         <partial name="_LoginPartial" />
                     </div>
+                </div>
             </nav>
         </header>
         <div class="main-grid">
