@@ -73,7 +73,6 @@ const handleModalClick = (e) => {
     main.className = "";
 }
 const handleAddClick = async (e) => {
-    console.log("click ID: ",e.target.id)
     let itemsInCart = LocalStorage.Get("shoppingCart");
     if (!itemsInCart) itemsInCart = []
     if (e.target.id)
@@ -142,7 +141,6 @@ function addCardEventListeners(){
 
 
 const handleProductClick = (e, id) => {
-    console.log(e.target.className)
     if (e.target instanceof HTMLButtonElement || e.target.classList.contains("control"))
         return;
     
@@ -193,10 +191,14 @@ const handleCheckoutRemoveItem = async (e) => {
 }
 
 function renderCheckoutContainer(){
+    const products = LocalStorage.Get("shoppingCart")
+    if (products.length === 0){
+        window.location.replace("/index");
+    }
     while (checkoutContainer.firstChild) {
         checkoutContainer.removeChild(checkoutContainer.lastChild);
     }
-    const products = LocalStorage.Get("shoppingCart")
+
     const checkoutList = CheckoutList(products, handleCheckoutAddItem, handleCheckoutRemoveItem)
     checkoutContainer.appendChild(checkoutList)
 }

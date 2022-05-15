@@ -73,12 +73,12 @@
                 </td>
                 <td class="icon-controls">
 
-                    <a class="btn-sm btn-light" asp-page="./Details" asp-route-id="@item.ID"><i class="fa fa-info" aria-hidden="true"></i></a>
+                    <a class="btn-sm btn-primary" asp-page="./Details" asp-route-id="@item.ID">Detaljer</a>
 
                     @if (User.IsInRole("admin"))
                     {
-                        <a class="btn-sm btn-primary" asp-page="./Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a class="btn-sm btn-danger" asp-page="./Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        <a class="btn-sm btn-primary" asp-page="./Edit" asp-route-id="@item.ID">Ändra</a>
+                        <a class="btn-sm btn-danger" asp-page="./Delete" asp-route-id="@item.ID">Ta bort</a>
                     }
                 </td>
             </tr>
