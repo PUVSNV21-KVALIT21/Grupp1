@@ -12,46 +12,24 @@
 @if (User.IsInRole("admin"))
 {
 
-    <h2>Beställningsnummer: @Html.DisplayFor(model => model.Order.ID)</h2>
-
-    <h3>Kundinformation</h3>
-
-     <table class="table">
-         <thead>
-              <th>
-                    Namn
-                </th>
-                <th>
-                    Telefonnummer
-                </th>
-                <th>
-                    Address
-                </th>
-                <th>
-                    Email
-                </th>
-         </thead>
-        <tbody>
-            <tr>
-
     <div id="pickingListPrintArea">
-        <h2>Beställnings Number: @Html.DisplayFor(model => model.Order.ID)</h2>
+        <h2>Beställningsnummer: @Html.DisplayFor(model => model.Order.ID)</h2>
 
-        <h3>Kund Information</h3>
+        <h3>Kundinformation</h3>
 
          <table class="table">
              <thead>
                   <th>
-                        Kundnamn
+                        Namn
                     </th>
                     <th>
-                        Kund Telefonnummer
+                        Telefonnummer
                     </th>
                     <th>
-                        Kund Address
+                        Address
                     </th>
                     <th>
-                        Kund Email
+                        Email
                     </th>
              </thead>
             <tbody>
