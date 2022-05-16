@@ -1,0 +1,53 @@
+﻿@page
+@model hakims_livs.Pages.Customers.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using hakims_livs.Models
+@inject SignInManager<Customer> SignInManager
+@inject UserManager<Customer> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Kunder</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Customers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                <a href="mailto:"@item.Email>@Html.DisplayFor(modelItem => item.Email)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.Id">Detaljer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

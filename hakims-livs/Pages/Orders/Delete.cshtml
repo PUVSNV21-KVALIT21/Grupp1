@@ -1,27 +1,27 @@
 ﻿@page
-@model hakims_livs.Pages.Categories.DeleteModel
+@model hakims_livs.Pages.Orders.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Ta bort</h1>
+<h1>Ta Bort</h1>
 
-<h3>Är du säker på att du vill ta bort denna kategorin?</h3>
+<h3>Är du säker på att du vill ta bort denna kunden?</h3>
 <div>
-    <h4>Kategori</h4>
+    <h4>Order</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category.Name)
+            @Html.DisplayNameFor(model => model.Order.OrderDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category.Name)
+            @Html.DisplayFor(model => model.Order.OrderDate)
         </dd>
     </dl>
     
     <form method="post">
-        <input type="hidden" asp-for="Category.ID" />
+        <input type="hidden" asp-for="Order.ID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Tillbaka</a>
     </form>

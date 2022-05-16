@@ -1,7 +1,8 @@
-﻿import {createModal, updateModal, updateModalButtons} from "./components/modal.js";
+﻿import {createModal, updateModal} from "./components/modal.js";
 import { Api } from "./components/api.js";
 import LocalStorage from "./components/localStorage.js";
 import {CheckoutList} from "./components/checkoutList.js";
+import {ProductControls} from "./components/productControls.js";
 
 const cartCounter = document.querySelector('.shoppingCart-counter')
 
@@ -13,10 +14,28 @@ const checkoutContainer = document.querySelector('.checkoutContainer');
 const makeOrderButton = document.getElementById("MakeOrderButton");
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
+const printButton = document.getElementById("printButton")
+
+if (printButton){
+    printButton.addEventListener('click', () => {
+
+        const printArea = document.getElementById('pickingListPrintArea').innerHTML;
+        const a = window.open('', '', 'height=1920, width=1080');
+        a.document.write('<html><header>');
+        a.document.write('<h1>Plocklista</h1>')
+        a.document.write('</header>');
+        a.document.write('<body>');
+        a.document.write(printArea);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+    })
+}
+
+
 
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(searchInput.value);
     let url = "";
     let newUrl = "";
     if (window.location.href.includes("?id=")){
@@ -31,13 +50,6 @@ searchForm.addEventListener('submit', (e) => {
 
 
 const categoriesContainer = document.querySelector(".categories-container")
-const productCards = document.querySelectorAll(".card-product");
-productCards.forEach(card => {
-    card.addEventListener('click', (event) => {
-        handleProductClick(event, card.id)
-    })
-})
-
 async function updateCategories() {
     const response = await fetch('/api/Categories');
     const categories = await response.json();
@@ -48,16 +60,16 @@ async function updateCategories() {
         categoryElement.href = "/Category?id=" + category.id
         categoryElement.textContent = category.name;
         categoriesContainer.appendChild(categoryElement);
-        
+
     })
 }
 
 const updateCounter = (itemsInCart) => {
-    
+
     if (!itemsInCart) return
-    
+
     let value = 0;
-    
+
     itemsInCart.forEach((item) => {
         const price = item.salesPrice;
         if (price) value = value + price
@@ -71,24 +83,30 @@ const handleModalClick = (e) => {
 
     e.preventDefault()
     //do nothing if the click happened within the card
-    if (e.target.className === ('modal-card')){
+    if (e.target.className !== ('modal-background')){
         return
     }
 
-    //else remove modal & background blur
     modalContainer.removeChild(e.target)
     main.className = "";
 }
-
 const handleAddClick = async (e) => {
     let itemsInCart = LocalStorage.Get("shoppingCart");
     if (!itemsInCart) itemsInCart = []
-    const product = await Api.getProduct(e.target.id)
-    itemsInCart.push(product)
-    LocalStorage.Set("shoppingCart", itemsInCart)
-    const modalControllers = document.querySelector('.modal-product-controls')
-    updateModalButtons(modalControllers, product, handleAddClick, handleRemoveClick)
-    updateCounter(itemsInCart)
+    if (e.target.id)
+    {
+        const product = await Api.getProduct(e.target.id)
+        itemsInCart.push(product)
+        LocalStorage.Set("shoppingCart", itemsInCart)
+        const modalControllers = document.querySelectorAll('.modal-product-controls')
+        modalControllers.forEach((controller) => {
+            ProductControls(controller, controller.id, handleAddClick, handleRemoveClick)
+        })
+
+        updateCounter(itemsInCart)
+    } else {
+        alert('something went wrong')
+    }
 }
 
 const handleRemoveClick = async (e) => {
@@ -101,19 +119,52 @@ const handleRemoveClick = async (e) => {
         if (!removed && p.id === product.id)
             removed = true;
         else updatedCart.push(p)
-        
+
     })
     LocalStorage.Set("shoppingCart", updatedCart)
-    const modalControllers = document.querySelector('.modal-product-controls')
-    updateModalButtons(modalControllers, product, handleAddClick, handleRemoveClick)
+    const modalControllers = document.querySelectorAll('.modal-product-controls')
+    modalControllers.forEach((controller) => {
+        ProductControls(controller, controller.id, handleAddClick, handleRemoveClick)
+    })
     updateCounter(updatedCart)
 }
 
 
 
+
+const productCards = document.querySelectorAll(".card-product");
+
+
+function renderProductControls() {
+    productCards.forEach(card => {
+        let productControls = document.createElement("div")
+        productControls.className = "modal-product-controls";
+        productControls.id = card.id
+        productControls = ProductControls(productControls, card.id, handleAddClick, handleRemoveClick);
+        card.appendChild(productControls)
+
+    })
+}
+
+function addCardEventListeners(){
+    productCards.forEach(card => {
+    card.addEventListener('click', (event) => {
+        handleProductClick(event, card.id)
+    })})
+}
+
+
+
+
+
+
 const handleProductClick = (e, id) => {
+    if (e.target instanceof HTMLButtonElement || e.target.classList.contains("control"))
+        return;
+
     main.className = "blurred";
     const m = createModal(handleModalClick);
+    m.id = id
     modalContainer.appendChild(m)
     Api.getProduct(id).then(product => {
         window.localStorage.setItem("product", JSON.stringify(product))
@@ -158,39 +209,94 @@ const handleCheckoutRemoveItem = async (e) => {
 }
 
 function renderCheckoutContainer(){
+    const products = LocalStorage.Get("shoppingCart")
+    if (products.length === 0){
+        window.location.replace("/index");
+    }
     while (checkoutContainer.firstChild) {
         checkoutContainer.removeChild(checkoutContainer.lastChild);
     }
-    const products = LocalStorage.Get("shoppingCart")
+
     const checkoutList = CheckoutList(products, handleCheckoutAddItem, handleCheckoutRemoveItem)
     checkoutContainer.appendChild(checkoutList)
 }
 
+function checkCard() {
+    const cardNumber = document.getElementById("cardNumberField")
+    const cardHolder = document.getElementById("cardHolderField")
+    const cardExpire = document.getElementById("cardExpireDateField")
+    const cardCVC = document.getElementById("cardCVCField")
+
+    var valid = true;
+    if (document.getElementById("paymentOption").value == "card") {
+        if (cardNumber.value == "") {
+            alert("Du måste fylla i ett kortnummer")
+            valid = false;
+        }
+        else if (cardNumber.value.length != 16) {
+            alert("Du har fyllt i ett för kort kortnummer")
+            valid = false;
+        }
+
+        if (cardHolder.value === "") {
+            alert("Du måste fylla i kortinnehavarens namn")
+            valid = false;
+        }
+        if (cardExpire.value == "") {
+            alert("Du måste fylla i förfallodatum")
+            valid = false;
+        }
+        if (cardCVC.value == "") {
+            alert("Du måste fylla i CVC")
+            valid = false;
+        }
+        else if (cardCVC.value.length != 3) {
+            alert("Du har fyllt i ett för kort CVC nummer")
+            valid = false;
+        }
+        return valid;
+    }
+    else {
+        return true;
+    }
+}
+
+
 if (checkoutContainer) {
     renderCheckoutContainer();
 
+    const clearCartButton = document.getElementById('clearCartButton')
+
+    clearCartButton.addEventListener('click', () => {
+        LocalStorage.Set('shoppingCart', [])
+        updateCounter([])
+        renderCheckoutContainer();
+    })
+
     makeOrderButton.onclick = function () {
+        if (checkCard()) {
+            const products = LocalStorage.Get("order");
 
-        const products = LocalStorage.Get("order");
+            (async () => {
+                const rawResponse = await fetch('api/placeorder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ "ShoppingCart": products })
+                });
+                if (rawResponse.redirected === true) {
+                    const url = rawResponse.url;
 
-        (async () => {
-            const rawResponse = await fetch('api/placeorder', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"ShoppingCart": products})
-            });
-            if (rawResponse.redirected === true){
-                const url = rawResponse.url;
-                
-                window.location.replace(rawResponse.url);
-            }
-            const response = rawResponse.statusText;
-            if (response !== "OK") {
-                alert("Something went wrong")
-            }
-        })();
-
+                    window.location.replace(rawResponse.url);
+                }
+                /*const response = rawResponse.statusText;*/
+                else {
+                    alert("Something went wrong")
+                }
+            })();
+        }
     }
 }
+renderProductControls();
+addCardEventListeners();
 updateCategories();
 updateCounter(LocalStorage.Get("shoppingCart"));

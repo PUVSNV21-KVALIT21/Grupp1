@@ -8,12 +8,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
     @if (User.IsInRole("admin"))
     {
-        <a asp-page="Create">Create New</a>
+        <a asp-page="Create">Skapa en ny Kategori</a>
     }
 </p>
 
@@ -33,8 +31,8 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a class="btn-sm btn-primary" asp-page="./Edit" asp-route-id="@item.ID">Ändra</a>
+                <a class="btn-sm btn-danger" asp-page="./Delete" asp-route-id="@item.ID">Ta Bort</a>
             </td>
         </tr>
 }

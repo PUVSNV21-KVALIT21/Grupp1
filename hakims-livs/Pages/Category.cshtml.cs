@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,9 @@ namespace hakims_livs.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
-        private readonly hakims_livs.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(hakims_livs.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,8 +30,10 @@ namespace hakims_livs.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Categories.Include(c => c.Products).FirstOrDefaultAsync(m => m.ID == id);
-            Products = Category.Products.Where(product => product.Name.Contains(searchString)).ToList();
+
+            Category = await _context.Categories.Include(c => c.Products).ThenInclude(p => p.Categories).FirstOrDefaultAsync(m => m.ID == id);
+            Products = Category.Products.Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
+
 
             if (Category == null)
             {

@@ -1,0 +1,62 @@
+@page
+@using hakims_livs.Models
+@model hakims_livs.Pages.Orders.IndexModel
+@inject SignInManager<Customer> SignInManager
+@inject UserManager<Customer> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+@if (User.IsInRole("admin"))
+{
+    <h1>Alla Beställningar</h1>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Beställningsdatum
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.ID">Visa beställning</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+else
+{
+    <h1>Mina Beställningar</h1>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Beställningsdatum
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.ID">Visa beställning</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+
+
