@@ -1,14 +1,58 @@
-﻿@page
+@page
 @model hakims_livs.Models.Product
 
 @{
     ViewData["Title"] = "Kassan";
 }
+<script src="js/components/paymentOption.js" defer></script>
 
 <h4>Dina varor</h4>
 
 <div class="checkoutContainer"></div>
+
 <button class="btn btn-primary" id="clearCartButton">Töm Varukorgen</button>
+
+
+<div id="paymentContainer">
+    <label for="paymentOption">Välj Betalsätt: </label>
+    <select name="paymentOption" id="paymentOption">
+        <option value="card">Kortbetalning</option>
+        <option value="swish">Swish</option>
+        <option value="invoice">Faktura</option>
+    </select>
+</div>
+
+<div id="cardPaymentContainer">
+    <label>Namn på kortinnehavare: </label>
+    <input size="20" id="cardHolderField"/>
+    <br />
+    <label>Kortnummer: </label>
+    <input type="text" maxlength="16" id="cardNumberField"/>
+    <br />
+    <label>Kortets förfallodatum: </label>
+    <input type="date" id="cardExpireDateField"/>
+    <br />
+    <label>CVC: </label>
+    <input type="text" maxlength="3" id="cardCVCField"/>
+</div>
+
+<div id="swishPaymentContainer" hidden>
+    <label>Swishnummer: </label>
+    <input type="text" maxlength="10" disabled/>
+</div>
+
+<div id="invoicePaymentContainer" hidden>
+    <label>Faktureringsadress: </label>
+    <input disabled/>
+    <br />
+    <label>Namn: </label>
+    <input disabled/>
+    <br />
+    <label>Personnummer: </label>
+    <input placeholder="YYYYMMDDXXXX" maxlength="12" disabled/>
+</div>
+
+
 <button class="btn btn-primary" id="MakeOrderButton">Betala</button>
 
 
