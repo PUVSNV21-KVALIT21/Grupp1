@@ -161,7 +161,6 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-
                             ConcurrencyStamp = "92168243-dfa1-4352-a964-4520beb1acf3",
 
                             Email = "admin@gmail.com",
@@ -169,7 +168,6 @@ namespace hakims_livs.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-
                             PasswordHash = "AQAAAAEAACcQAAAAEAnk/qOWEVJfIWmbsQHU4d/RGdP8bOVND8E2z2zWM9SR+4S78nqU/dLTmUoUbMkTEA==",
 
                             PhoneNumberConfirmed = false,
@@ -347,9 +345,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-
                             ConcurrencyStamp = "2a5336a6-a07a-4f89-b9c6-ef3bb1d1fb55",
-
                             Name = "admin",
                             NormalizedName = "admin"
                         });

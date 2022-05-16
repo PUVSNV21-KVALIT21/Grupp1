@@ -40,7 +40,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Alla Beställningar</a>
                                     
                                 }
-                                else if (SignInManager.IsSignedIn(User))
+                                else
                                 {
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Mina Beställningar</a>
                                 }
@@ -54,7 +54,7 @@
                             <li class="nav-item">
                                 @if (User.IsInRole("admin"))
                                 {
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Produkter</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Admin</a>
                                 }
                             </li>
                             <li class="nav-item">
