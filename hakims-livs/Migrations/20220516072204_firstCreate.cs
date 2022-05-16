@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace hakims_livs.Migrations
 {
-    public partial class First : Migration
+    public partial class firstCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -339,12 +339,12 @@ namespace hakims_livs.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "2a5336a6-a07a-4f89-b9c6-ef3bb1d1fb55", "admin", "admin" });
+                values: new object[] { "ad376a8f-9eab-4bb9-9fca-30b01540f445", "0a304a3f-580c-40a2-bf0e-b7562d36aac2", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressID", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "92168243-dfa1-4352-a964-4520beb1acf3", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEAnk/qOWEVJfIWmbsQHU4d/RGdP8bOVND8E2z2zWM9SR+4S78nqU/dLTmUoUbMkTEA==", null, false, "", false, "admin@gmail.com" });
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, null, "504dbaa9-80c4-4817-9848-5e1246ad1df4", "admin@gmail.com", true, null, null, false, null, "admin@gmail.com", "admin@gmail.com", "AQAAAAEAACcQAAAAEFqqDDRMKXNiU8ThW8a7LgsqAan3Deqq+4TxwZMfFuDRRQUibV0vjKjkau0xdNfrCw==", null, false, "", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
