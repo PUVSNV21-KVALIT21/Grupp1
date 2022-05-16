@@ -1,4 +1,4 @@
-import {LocalStorage} from "./localStorage.js";
+import {ProductControls} from "./productControls.js";
 
 export const createModal = (handleClick) => {
 
@@ -15,6 +15,7 @@ export const createModal = (handleClick) => {
 }
 
 export function updateModal(modal, product, onAddClick, onRemoveClick){
+    console.log("hej")
 
     if (modal.classList.contains('loading')) modal.classList.remove('loading');
 
@@ -24,15 +25,20 @@ export function updateModal(modal, product, onAddClick, onRemoveClick){
     const modalInfo = document.createElement('div')
     const title = document.createElement("h1")
     let productControls = document.createElement("div")
-    productControls = updateModalButtons(productControls, product, onAddClick, onRemoveClick);
+    productControls.id = product.id
+    productControls = ProductControls(productControls, product.id, onAddClick, onRemoveClick, "update-modal");
     const description = document.createElement("p")
     const priceContainer = document.createElement('div');
     const volumeUnit = document.createElement("p");
-    const price = document.createElement("h2");
+    const inStock = document.createElement('p')
+    const price = document.createElement("p");
     const modalFooter = document.createElement("div")
     const origin = document.createElement('p')
+    const smallTextInfo = document.createElement('div')
+    
+    smallTextInfo.className = "card-product-flex-span"
 
-    price.className = 'modal-price'
+    price.className = 'card-product-price modal-price'
     modalImage.className = 'modal-image'
     modalImage.src = "/images/" + product.image
     modalImageContainer.className = "modal-image"
@@ -43,69 +49,30 @@ export function updateModal(modal, product, onAddClick, onRemoveClick){
     priceContainer.className = "modal-price-container"
 
     modalFooter.className = "modal-card-footer"
-    origin.className = "modal-origin"
-
+    origin.className = "card-text card-text-small"
     title.textContent = product.name
     origin.textContent = product.origin
     description.textContent = product.description
     volumeUnit.textContent = product.volume +" " + product.unit
-    price.textContent = product.salesPrice + "kr /"
+    volumeUnit.className = "card-text card-text-small"
+    price.textContent = product.salesPrice + ":-"
+    inStock.textContent = "Antal i lager: " + product.stock
+    inStock.className = "card-text card-text-small"
     
 
     modalImageContainer.appendChild(modalImage)
     modalCard.appendChild(modalImage)
     modalInfo.appendChild(title)
-    modalInfo.appendChild(origin)
+    smallTextInfo.appendChild(origin)
+    smallTextInfo.appendChild(volumeUnit)
+    modalInfo.appendChild(smallTextInfo)
     modalInfo.appendChild(description)
     priceContainer.appendChild(price);
-    priceContainer.appendChild(volumeUnit);
+    priceContainer.appendChild(inStock);
     modalFooter.appendChild(priceContainer);
     modalFooter.appendChild(productControls)
     modalInfo.appendChild(modalFooter)
     modalCard.appendChild(modalInfo)
-
-
-
-}
-
-export const updateModalButtons = (parent, product, onAddClick, onRemoveClick) => {
-    while (parent.firstChild) {
-        parent.removeChild(parent.lastChild);
-    }
-    const buyButton = document.createElement("button")
-    const removeButton = document.createElement("button")
-
-    buyButton.addEventListener("click", onAddClick)
     
-    removeButton.addEventListener("click", onRemoveClick)
-    buyButton.className = "btn btn-primary btn-product btn-product-add"
-    buyButton.id = product.id
-    removeButton.className = "btn btn-primary btn-product btn-product-remove"
-    removeButton.id = product.id
-    const cart = LocalStorage.Get("shoppingCart")
-    let cartContainsProduct;
-    cart.forEach((p) => {
-        if (p.id === product.id){
-            cartContainsProduct = true;
-        }
-    })
-    if (cartContainsProduct) {
-        parent.appendChild(removeButton);
-        parent.appendChild(buyButton)
-
-        const addIcon = document.createElement('i')
-        addIcon.className = "fa fa-plus"
-        addIcon.id = product.id
-        buyButton.appendChild(addIcon);
-        
-        const removeIcon = document.createElement('i')
-        removeIcon.className = "fa fa-minus"
-        removeIcon.id = product.id
-        removeButton.appendChild(removeIcon);
-        
-    } else {
-        parent.appendChild(buyButton)
-        buyButton.textContent = "Köp"
-    }
-    return parent;
 }
+

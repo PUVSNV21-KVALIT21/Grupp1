@@ -30,7 +30,8 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
         const itemElement = document.createElement('div');
         itemElement.className = "checkoutItem";
         const details = document.createElement('div')
-        const name = document.createElement('b')
+        details.className = "checkoutItem-details"
+        const name = document.createElement('p')
         name.textContent = product.name;
         details.appendChild(name)
 
@@ -39,8 +40,9 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
         details.appendChild(price)
 
         const quantity = document.createElement('p')
-        quantity.textContent = "Antal: " + item.quantity + " st";
-        details.appendChild(quantity)
+        quantity.className = "checkout-quantity"
+        quantity.textContent = item.quantity
+        
         
         
         const imageDiv = document.createElement('div')
@@ -74,8 +76,11 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
         
         itemElement.appendChild(imageDiv)
         itemElement.appendChild(details)
-        controls.appendChild(addButton)
+
         controls.appendChild(removeButton)
+        controls.appendChild(quantity)
+        controls.appendChild(addButton)
+
         itemElement.appendChild(controls)
         checkoutList.appendChild(itemElement)
     })

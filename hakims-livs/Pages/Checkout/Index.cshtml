@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model hakims_livs.Models.Product
 
 @{
@@ -9,6 +9,9 @@
 <h4>Dina varor</h4>
 
 <div class="checkoutContainer"></div>
+
+<button class="btn btn-primary" id="clearCartButton">Töm Varukorgen</button>
+
 
 <div id="paymentContainer">
     <label for="paymentOption">Välj Betalsätt: </label>
@@ -48,6 +51,7 @@
     <label>Personnummer: </label>
     <input placeholder="YYYYMMDDXXXX" maxlength="12" disabled/>
 </div>
+
 
 <button class="btn btn-primary" id="MakeOrderButton">Betala</button>
 
