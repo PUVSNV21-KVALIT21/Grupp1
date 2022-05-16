@@ -16,18 +16,22 @@ const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
 const printButton = document.getElementById("printButton")
 
-printButton.onclick = function printPickingList() {
-    var printArea = document.getElementById('pickingListPrintArea').innerHTML;
-    var a = window.open('', '', 'height=1920, width=1080');
-    a.document.write('<html><header>');
-    a.document.write('<h1>Plocklista</h1>')
-    a.document.write('</header>');
-    a.document.write('<body>');
-    a.document.write(printArea);
-    a.document.write('</body></html>');
-    a.document.close();
-    a.print();
+if (printButton){
+    printButton.addEventListener('click', () => {
+
+        const printArea = document.getElementById('pickingListPrintArea').innerHTML;
+        const a = window.open('', '', 'height=1920, width=1080');
+        a.document.write('<html><header>');
+        a.document.write('<h1>Plocklista</h1>')
+        a.document.write('</header>');
+        a.document.write('<body>');
+        a.document.write(printArea);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+    })
 }
+
 
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -44,7 +48,7 @@ searchForm.addEventListener('submit', (e) => {
 })
 
 
-
+const categoriesContainer = document.querySelector(".categories-container")
 async function updateCategories() {
     const response = await fetch('/api/Categories');
     const categories = await response.json();
