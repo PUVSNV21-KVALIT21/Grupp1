@@ -33,6 +33,7 @@ if (printButton){
 }
 
 
+
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     let url = "";
