@@ -7,81 +7,89 @@
     ViewData["Title"] = "Details";
 }
 
+
+
 @if (User.IsInRole("admin"))
 {
-    <h2>Beställnings Number: @Html.DisplayFor(model => model.Order.ID)</h2>
+    <div id="pickingListPrintArea">
+        <h2>Beställnings Number: @Html.DisplayFor(model => model.Order.ID)</h2>
 
-    <h3>Kund Information</h3>
+        <h3>Kund Information</h3>
 
-     <table class="table">
-         <thead>
-              <th>
-                    Kundnamn
-                </th>
-                <th>
-                    Kund Telefonnummer
-                </th>
-                <th>
-                    Kund Address
-                </th>
-                <th>
-                    Kund Email
-                </th>
-         </thead>
-        <tbody>
-            <tr>
-               
-                 <td>
-                        @Html.DisplayFor(model => model.Order.Customer.FirstName)  @Html.DisplayFor(model => model.Order.Customer.LastName)
-                    </td>
-                     <td>
-                       @Html.DisplayFor(model => model.Order.Customer.PhoneNumber)
-                    </td>
-                  <td>
-                       @Html.DisplayFor(model => model.Order.Customer.Address)
-                    </td>
-                 <td>
-                        @Html.DisplayFor(model => model.Order.Customer.Email)
-                    </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>Beställning</h3>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Produkt
-                </th>
-                <th>
-                    Antal
-                </th>
-                <th>
-                    Pris
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Order.OrderRows)
-            {
+         <table class="table">
+             <thead>
+                  <th>
+                        Kundnamn
+                    </th>
+                    <th>
+                        Kund Telefonnummer
+                    </th>
+                    <th>
+                        Kund Address
+                    </th>
+                    <th>
+                        Kund Email
+                    </th>
+             </thead>
+            <tbody>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
+               
+                     <td>
+                            @Html.DisplayFor(model => model.Order.Customer.FirstName)  @Html.DisplayFor(model => model.Order.Customer.LastName)
+                        </td>
+                         <td>
+                           @Html.DisplayFor(model => model.Order.Customer.PhoneNumber)
+                        </td>
+                      <td>
+                           @Html.DisplayFor(model => model.Order.Customer.Address)
+                        </td>
+                     <td>
+                            @Html.DisplayFor(model => model.Order.Customer.Email)
+                        </td>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <h2>Summa: @Model.OrderSum</h2>
+            </tbody>
+        </table>
+
+        <h3>Beställning</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Produkt
+                    </th>
+                    <th>
+                        Antal
+                    </th>
+                    <th>
+                        Pris
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Order.OrderRows)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h2>Summa: @Model.OrderSum</h2>
+        <p></p>
+    </div>
+
+   <input type="button" id="printButton" onclick="printPickingList('pickingListPrintArea')" value="Skriv ut plocklista" />
+    
     <a asp-page="./Edit" asp-route-id="@Model.Order.ID">Ändra</a> 
     <a asp-page="./Delete" asp-route-id="@Model.Order.ID">Ta Bort</a> 
 
@@ -128,5 +136,7 @@ else
     <h2>Summa: @Model.OrderSum</h2>
 
 }
+
+ 
 
 
