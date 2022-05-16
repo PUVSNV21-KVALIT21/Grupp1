@@ -22,8 +22,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.4" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
-    <PackageReference Include="Select.HtmlToPdf" Version="22.1.0" />
-    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="22.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 
   </ItemGroup>

@@ -63,8 +63,17 @@
                          <td>
                            @Html.DisplayFor(model => model.Order.Customer.PhoneNumber)
                         </td>
-                      <td>
-                           @Html.DisplayFor(model => model.Order.Customer.Address)
+                    <td><p>
+                            @Html.DisplayFor(model => model.Order.Customer.Address.Street)
+                        </p>
+                        <p>
+                            @Html.DisplayFor(model => model.Order.Customer.Address.PostalCode)
+                                                       @Html.DisplayFor(model => model.Order.Customer.Address.City)
+                        </p>   
+                        <p>
+                            @Html.DisplayFor(model => model.Order.Customer.Address.Country)
+                        </p>   
+                           
                         </td>
                      <td>
                             @Html.DisplayFor(model => model.Order.Customer.Email)
