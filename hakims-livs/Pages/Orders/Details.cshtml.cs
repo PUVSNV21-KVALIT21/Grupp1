@@ -1,15 +1,11 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using hakims_livs.Data;
 using hakims_livs.Models;
-using hakims_livs.Controllers;
-using Aspose.Pdf;
+
 
 namespace hakims_livs.Pages.Orders
 {
@@ -66,7 +62,7 @@ namespace hakims_livs.Pages.Orders
         //    var headerRow = table.Rows.Add();
         //    headerRow.Cells.Add("Art.nr");
         //    headerRow.Cells.Add("Produktnamn");
-        //    headerRow.Cells.Add("Märke");
+        //    headerRow.Cells.Add("Mï¿½rke");
         //    headerRow.Cells.Add("Antal");
         //    headerRow.Cells.Add("Volym");
         //    headerRow.Cells.Add("Enhet");
