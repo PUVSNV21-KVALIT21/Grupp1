@@ -36,7 +36,8 @@ namespace hakims_livs.Pages.Orders
 
             foreach (var item in Order.OrderRows)
             {
-                OrderSum += item.Price;
+                OrderSum += item.Price * item.Quantity;
+
             }
 
             OrderSum = decimal.Round(OrderSum, 2);
