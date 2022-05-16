@@ -166,30 +166,71 @@ function renderCheckoutContainer(){
     checkoutContainer.appendChild(checkoutList)
 }
 
+function checkCard() {
+    const cardNumber = document.getElementById("cardNumberField")
+    const cardHolder = document.getElementById("cardHolderField")
+    const cardExpire = document.getElementById("cardExpireDateField")
+    const cardCVC = document.getElementById("cardCVCField")
+
+    var valid = true;
+    if (document.getElementById("paymentOption").value == "card") {
+        if (cardNumber.value == "") {
+            alert("Du måste fylla i ett kortnummer")
+            valid = false;
+        }
+        else if (cardNumber.value.length != 16) {
+            alert("Du har fyllt i ett för kort kortnummer")
+            valid = false;
+        }
+
+        if (cardHolder.value === "") {
+            alert("Du måste fylla i kortinnehavarens namn")
+            valid = false;
+        }
+        if (cardExpire.value == "") {
+            alert("Du måste fylla i förfallodatum")
+            valid = false;
+        }
+        if (cardCVC.value == "") {
+            alert("Du måste fylla i CVC")
+            valid = false;
+        }
+        else if (cardCVC.value.length != 3) {
+            alert("Du har fyllt i ett för kort CVC nummer")
+            valid = false;
+        }
+        return valid;
+    }
+    else {
+        return true;
+    }
+}
+
+
 if (checkoutContainer) {
     renderCheckoutContainer();
 
     makeOrderButton.onclick = function () {
+        if (checkCard()) {
+            const products = LocalStorage.Get("order");
 
-        const products = LocalStorage.Get("order");
+            (async () => {
+                const rawResponse = await fetch('api/placeorder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ "ShoppingCart": products })
+                });
+                if (rawResponse.redirected === true) {
+                    const url = rawResponse.url;
 
-        (async () => {
-            const rawResponse = await fetch('api/placeorder', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"ShoppingCart": products})
-            });
-            if (rawResponse.redirected === true){
-                const url = rawResponse.url;
-                
-                window.location.replace(rawResponse.url);
-            }
-            const response = rawResponse.statusText;
-            if (response !== "OK") {
-                alert("Something went wrong")
-            }
-        })();
-
+                    window.location.replace(rawResponse.url);
+                }
+                /*const response = rawResponse.statusText;*/
+                else {
+                    alert("Something went wrong")
+                }
+            })();
+        }
     }
 }
 updateCategories();
