@@ -79,6 +79,8 @@ const updateCounter = (itemsInCart) => {
     let formattedValue = value.replace('.', ',')
     if (formattedValue[formattedValue.length-1] === '0' && formattedValue[value.length-2] === '0'){
         formattedValue = formattedValue.split(",")[0]
+        
+        
     }
     
     cartCounter.textContent = value > 0 ? formattedValue + " kr" : "";
