@@ -51,6 +51,7 @@ namespace hakims_livs.Models
         public bool IsVegan { get; set; }
         public bool IsGluten { get; set; }
         [Display(Name = "Bäst före")]
+        [DataType(DataType.Date)]
         public DateTime ExpiryDate { get; set; }
         [Column(TypeName = "nvarchar(30)")]
         [Display(Name = "Varumärke")]
