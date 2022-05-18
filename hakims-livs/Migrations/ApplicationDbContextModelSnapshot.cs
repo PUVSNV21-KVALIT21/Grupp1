@@ -34,7 +34,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ProductsID");
 
-                    b.ToTable("CategoryProduct");
+                    b.ToTable("CategoryProduct", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Address", b =>
@@ -59,7 +59,7 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Adresses", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Category", b =>
@@ -76,7 +76,7 @@ namespace hakims_livs.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Customer", b =>
@@ -193,7 +193,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.OrderRow", b =>
@@ -222,7 +222,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderRow");
+                    b.ToTable("OrderRow", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.Product", b =>
@@ -292,7 +292,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("hakims_livs.Models.ShoppingCart", b =>
@@ -310,7 +310,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("ShoppingCarts");
+                    b.ToTable("ShoppingCarts", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -479,7 +479,7 @@ namespace hakims_livs.Migrations
 
                     b.HasIndex("ShoppingCartsID");
 
-                    b.ToTable("ProductShoppingCart");
+                    b.ToTable("ProductShoppingCart", (string)null);
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>
