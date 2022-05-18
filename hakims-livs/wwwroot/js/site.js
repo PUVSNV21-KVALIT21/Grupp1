@@ -14,7 +14,25 @@ const checkoutContainer = document.querySelector('.checkoutContainer');
 const makeOrderButton = document.getElementById("MakeOrderButton");
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
-const categoriesContainer = document.querySelector(".categories-container")
+const printButton = document.getElementById("printButton")
+
+if (printButton){
+    printButton.addEventListener('click', () => {
+
+        const printArea = document.getElementById('pickingListPrintArea').innerHTML;
+        const a = window.open('', '', 'height=1920, width=1080');
+        a.document.write('<html><header>');
+        a.document.write('<h1>Plocklista</h1>')
+        a.document.write('</header>');
+        a.document.write('<body>');
+        a.document.write(printArea);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+    })
+}
+
+
 
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -31,7 +49,7 @@ searchForm.addEventListener('submit', (e) => {
 })
 
 
-
+const categoriesContainer = document.querySelector(".categories-container")
 async function updateCategories() {
     const response = await fetch('/api/Categories');
     const categories = await response.json();
@@ -56,7 +74,16 @@ const updateCounter = (itemsInCart) => {
         const price = item.salesPrice;
         if (price) value = value + price
     })
-    cartCounter.textContent = value > 0 ? value + " kr" : "";
+    value = value.toFixed(2)
+
+    let formattedValue = value.replace('.', ',')
+    if (formattedValue[formattedValue.length-1] === '0' && formattedValue[value.length-2] === '0'){
+        formattedValue = formattedValue.split(",")[0]
+        
+        
+    }
+    
+    cartCounter.textContent = value > 0 ? formattedValue + " kr" : "";
 }
 
 
@@ -68,7 +95,7 @@ const handleModalClick = (e) => {
     if (e.target.className !== ('modal-background')){
         return
     }
-    
+
     modalContainer.removeChild(e.target)
     main.className = "";
 }
@@ -110,10 +137,10 @@ const handleRemoveClick = async (e) => {
     })
     updateCounter(updatedCart)
 }
-    
 
 
-    
+
+
 const productCards = document.querySelectorAll(".card-product");
 
 
@@ -124,7 +151,7 @@ function renderProductControls() {
         productControls.id = card.id
         productControls = ProductControls(productControls, card.id, handleAddClick, handleRemoveClick);
         card.appendChild(productControls)
-        
+
     })
 }
 
@@ -143,7 +170,7 @@ function addCardEventListeners(){
 const handleProductClick = (e, id) => {
     if (e.target instanceof HTMLButtonElement || e.target.classList.contains("control"))
         return;
-    
+
     main.className = "blurred";
     const m = createModal(handleModalClick);
     m.id = id
@@ -246,9 +273,9 @@ function checkCard() {
 
 if (checkoutContainer) {
     renderCheckoutContainer();
-    
+
     const clearCartButton = document.getElementById('clearCartButton')
-    
+
     clearCartButton.addEventListener('click', () => {
         LocalStorage.Set('shoppingCart', [])
         updateCounter([])

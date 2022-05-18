@@ -17,13 +17,13 @@
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.FirstName)
+                Förnamn
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.FirstName)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.LastName)
+                Efternamn
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.LastName)
@@ -35,31 +35,31 @@
                 @Html.DisplayFor(model => model.Customer.Email)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
+                Telefonnummer
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.PhoneNumber)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.Address.Street)
+                Gatuaddress
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.Address.Street)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.Address.PostalCode)
+                Postnummer
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.Address.PostalCode)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.Address.City)
+                Stad
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.Address.City)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Customer.Address.Country)
+                Land
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Customer.Address.Country)
@@ -70,7 +70,7 @@
         @if (@Model.Customer.UserName != "admin@gmail.com")
         {
             <input type="hidden" asp-for="Customer.Id" />
-            <input type="submit" value="Delete customer account" class="btn btn-danger" />
+            <input type="submit" value="Ta bort kund konto" class="btn btn-danger" />
         }
         <a asp-page="./Index">Tillbaka</a>
     </form>
