@@ -49,7 +49,6 @@ namespace hakims_livs.Controllers
 
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
-                
                 return Redirect("../Orders/Details?id=" + order.ID);
             }
 
