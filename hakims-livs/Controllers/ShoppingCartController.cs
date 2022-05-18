@@ -38,6 +38,7 @@ namespace hakims_livs.Controllers
                 foreach(var item in root.ShoppingCart)
                 {
                     var product = await _context.Products.FirstOrDefaultAsync(p => p.ID == item.productID);
+                    product.Stock = product.Stock - item.quantity;
                     var orderRow = new OrderRow();
                     orderRow.Price = product.SalesPrice;
                     orderRow.Product = product;
