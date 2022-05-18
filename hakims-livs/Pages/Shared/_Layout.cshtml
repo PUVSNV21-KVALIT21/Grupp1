@@ -28,19 +28,19 @@
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
-                           
+                           <li class="nav-item">
                                 <form id="searchForm">
                                     <label for="searchInput"></label>
                                     <input type="text" placeholder="Sök..." id="searchInput" />
                                 </form>
-                            
+                            </li>
                             <li class="nav-item">
                                 @if (User.IsInRole("admin"))
                                 {
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Alla Beställningar</a>
                                     
                                 }
-                                else
+                                else if (SignInManager.IsSignedIn(User))   
                                 {
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Mina Beställningar</a>
                                 }

@@ -12,14 +12,14 @@ using hakims_livs.Data;
 namespace hakims_livs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220512110934_first")]
-    partial class first
+    [Migration("20220518090656_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -161,13 +161,13 @@ namespace hakims_livs.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d7d83037-7c7a-4c8a-8c5a-7bd933ce6e59",
+                            ConcurrencyStamp = "c56461a7-e9b5-4b50-83a4-6ad65d7c127b",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDxH9ngkinEY1GenihyJ9T3GjkcLWyriU3UndqWMdMukhiSpm9tmKBwEAb5zhEcrcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO57hNybPK+gjPC4x/SyphLzZiSfWOKHJn6O7hVAixUMbKb0gK9I0WbWchN2Jhen1g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -343,7 +343,7 @@ namespace hakims_livs.Migrations
                         new
                         {
                             Id = "ad376a8f-9eab-4bb9-9fca-30b01540f445",
-                            ConcurrencyStamp = "d08b5679-e010-4b1e-986b-9568d267c2c2",
+                            ConcurrencyStamp = "01bb44c0-fde3-4826-ae79-168cf890b3d3",
                             Name = "admin",
                             NormalizedName = "admin"
                         });
