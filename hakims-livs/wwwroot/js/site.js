@@ -305,6 +305,32 @@ if (checkoutContainer) {
         }
     }
 }
+
+//popup label
+const tooltip = document.getElementById('icon-tooltip');
+
+//make popup follow mouse movement
+window.addEventListener('mousemove', function(e) {
+    const left = e.pageX;
+    const top = e.pageY - 50;
+    tooltip.style.left = left + 'px';
+    tooltip.style.transform = "translate(-50%, 0)"
+    tooltip.style.top = top + 'px';
+});
+
+const allIcons = document.querySelectorAll(".card-product-icon");
+//show popup label on mouse enter, and add text stored in rect
+allIcons.forEach(r => r.addEventListener('mouseenter', function(e){
+    tooltip.classList.add("visible");
+    tooltip.textContent = e.target.id;
+}))
+
+allIcons.forEach(r => r.addEventListener('mouseout', function(e){
+    tooltip.classList.remove("visible");
+}))
+
+
+
 renderProductControls();
 addCardEventListeners();
 updateCategories();
