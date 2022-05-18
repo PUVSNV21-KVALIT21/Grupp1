@@ -40,7 +40,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Alla Beställningar</a>
                                     
                                 }
-                                else
+                                else if (SignInManager.IsSignedIn(User))   
                                 {
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Mina Beställningar</a>
                                 }
