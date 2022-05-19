@@ -20,8 +20,13 @@ export const ProductControls = (parent, productId, onAddClick, onRemoveClick) =>
     let cartContainsProduct = false
     let productCounter = 0;
     cart.forEach((p) => {
-        if (parseInt(p.id) == productId){
-            productCounter += 1;
+        if (parseInt(p.id) == productId) {
+            if (p.stock > productCounter) {
+                productCounter += 1;
+            }
+            else {
+                productCounter = productCounter;
+            }
             cartContainsProduct = true;
         }
     })

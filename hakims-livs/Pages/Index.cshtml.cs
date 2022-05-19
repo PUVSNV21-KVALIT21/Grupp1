@@ -27,9 +27,7 @@ namespace hakims_livs.Pages
 
         public async Task OnGetAsync(string searchString = "")
         {
-
-
-        Products = await _context.Products.Include(p => p.Categories).Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToListAsync();
+            Products = await _context.Products.Include(p => p.Categories).Where(product => product.Name.ToLower().Contains(searchString.ToLower()) && product.Stock > 0).ToListAsync();
             
         }
 

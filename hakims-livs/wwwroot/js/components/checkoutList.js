@@ -10,7 +10,14 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
     products.forEach(product => {
         if (ids.includes(product.id)){
             let item = checkOutItems.find(i => i.productId === product.id);
-            item.quantity = item.quantity +1;
+            if (product.stock > item.quantity) {
+                item.quantity = item.quantity + 1;
+
+            }
+            else {
+                item.quantity = item.quantity;
+            }
+
         } else {
             const item = {
                 "productId" : product.id ,

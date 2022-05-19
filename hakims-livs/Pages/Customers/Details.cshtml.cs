@@ -25,6 +25,9 @@ namespace hakims_livs.Pages.Customers
 
         public Customer toBeRemoved { get; set; }
 
+        public List<Order> orders { get; set; }
+        public List<OrderRow> orderRows { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(string? id)
         {
@@ -49,8 +52,17 @@ namespace hakims_livs.Pages.Customers
         
         public async Task<IActionResult> OnPostAsync(string? id)
         {
-            Customer = await _context.Users.Include(u => u.Address).FirstOrDefaultAsync(m => m.Id == id);
+            Customer = await _context.Users
+                .Include(u => u.Address)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            orders = await _context.Orders
+                .Where(order => order.Customer.Id == Customer.Id)
+                .Include(order => order.OrderRows)
+                .ToListAsync();
+
             _context.Remove(Customer);
+            _context.RemoveRange(orders);  
             await _context.SaveChangesAsync();
             return RedirectToPage("Customers");
         }
