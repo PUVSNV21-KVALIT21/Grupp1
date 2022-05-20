@@ -32,7 +32,7 @@ namespace hakims_livs.Pages.Categories
 
 
             Category = await _context.Categories.Include(c => c.Products).ThenInclude(p => p.Categories).FirstOrDefaultAsync(m => m.ID == id);
-            Products = Category.Products.Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
+            Products = Category.Products.Where(product => product.Name.ToLower().Contains(searchString.ToLower()) && product.Stock > 0).ToList();
 
 
             if (Category == null)
