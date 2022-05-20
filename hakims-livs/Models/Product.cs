@@ -61,6 +61,7 @@ namespace hakims_livs.Models
         public Product()
         {
             CreatedDateTime = DateTime.Now;
+            Categories = new List<Category>();
         }
 
     }
