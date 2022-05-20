@@ -11,7 +11,9 @@
 <div class="product-grid">
     <p id="icon-tooltip">Tooltip</p>
 
-    @foreach (var item in Model.Products)
+    @if (Model.Products != null)
+    {
+   @foreach (var item in Model.Products)
     {
         <div class="card card-product" id=@item.ID>
             @if (item.Image != null)
@@ -71,6 +73,9 @@
             </div>
 
         </div>
+    }        
+        
     }
+ 
 </div>
 
