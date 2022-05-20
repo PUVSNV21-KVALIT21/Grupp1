@@ -6,19 +6,14 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
     
     const checkoutList = document.createElement('div');
     checkoutList.className = "checkoutList";
+    let buttonDisabled = [];
     
     products.forEach(product => {
+        let item = {};
         if (ids.includes(product.id)){
-            let item = checkOutItems.find(i => i.productId === product.id);
-            if (product.stock > item.quantity) {
+            item = checkOutItems.find(i => i.productId === product.id);
                 item.quantity = item.quantity + 1;
-
-            }
-            else {
-                item.quantity = item.quantity;
-            }
-
-        } else {
+            } else {
             const item = {
                 "productId" : product.id ,
                 "quantity" : 1
@@ -26,7 +21,14 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
             checkOutItems.push(item)
             ids.push(product.id)
         }
+        
+        if (product.stock <= item.quantity)
+        {
+            buttonDisabled[product.id] = true;
+        }
+        
     })
+    
     
     LocalStorage.Set('order', checkOutItems)
     
@@ -65,6 +67,7 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
         
         const addButton = document.createElement('button');
         addButton.className = "btn btn-primary btn-sm btn-checkout"
+        if (buttonDisabled[item.productId]) addButton.classList.add("btn-disabled")
         addButton.id = item.productId;
         const addIcon = document.createElement('i')
         addIcon.id = item.productId
