@@ -15,9 +15,9 @@ namespace hakims_livs.Pages.Orders
 
     public class DeleteModel : PageModel
     {
-        private readonly hakims_livs.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(hakims_livs.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -51,7 +51,9 @@ namespace hakims_livs.Pages.Orders
             {
                 return NotFound();
             }
-            var order = await _context.Orders.FindAsync(id);
+
+            var order = await _context.Orders.Include(o => o.OrderRows).Where(o => o.ID == id).FirstAsync();
+            
 
             if (order != null)
             {

@@ -457,3 +457,10 @@ img.modal-image  {
 .visible {
   display: block !important;
 }
+
+.btn-disabled{
+  background-color: #bbbbbb !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  border: none;
+}

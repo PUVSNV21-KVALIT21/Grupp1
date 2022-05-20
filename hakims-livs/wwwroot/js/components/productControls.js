@@ -18,29 +18,35 @@ export const ProductControls = (parent, productId, onAddClick, onRemoveClick) =>
     removeButton.id = productId
     const cart = LocalStorage.Get("shoppingCart")
     let cartContainsProduct = false
+    let buttonDisabled = false
     let productCounter = 0;
+    let productStock = 0;
     cart.forEach((p) => {
         if (parseInt(p.id) == productId) {
-            if (p.stock > productCounter) {
-                productCounter += 1;
-            }
-            else {
-                productCounter = productCounter;
-            }
+           
+            productStock = p.stock;
+            productCounter += 1;
             cartContainsProduct = true;
         }
     })
+    
+    if (productCounter >= productStock)
+        buttonDisabled = true;
     if (cartContainsProduct) {
         
         const productCount = document.createElement('span')
         productCount.textContent = productCounter
         productCount.className = "product-count"
 
+
         const addIcon = document.createElement('i')
         addIcon.className = "fa fa-plus"
         addIcon.classList.add("control")
         addIcon.id = productId
         buyButton.appendChild(addIcon);
+        if (buttonDisabled) {
+        buyButton.classList.add('btn-disabled')
+        }
 
         const removeIcon = document.createElement('i')
         removeIcon.className = "fa fa-minus"
