@@ -65,6 +65,7 @@ export const  CheckoutList = (products, handleAddClick, handleRemoveClick) => {
         const controls = document.createElement('div')
         controls.className = "checkoutList-controls"
         
+        
         const addButton = document.createElement('button');
         addButton.className = "btn btn-primary btn-sm btn-checkout"
         if (buttonDisabled[item.productId]) addButton.classList.add("btn-disabled")
