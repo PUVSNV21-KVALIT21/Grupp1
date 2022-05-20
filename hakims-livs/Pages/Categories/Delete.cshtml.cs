@@ -52,6 +52,10 @@ namespace hakims_livs.Pages.Categories
 
             if (Category != null)
             {
+                foreach(var product in _context.Products.Where(p => p.Categories.Contains(Category)))
+                {
+                    product.Categories.Remove(Category);
+                }
                 _context.Categories.Remove(Category);
                 await _context.SaveChangesAsync();
             }

@@ -163,10 +163,6 @@ function addCardEventListeners(){
 }
 
 
-
-
-
-
 const handleProductClick = (e, id) => {
     if (e.target instanceof HTMLButtonElement || e.target.classList.contains("control"))
         return;
@@ -237,8 +233,8 @@ function checkCard() {
     const cardCVC = document.getElementById("cardCVCField")
 
     var valid = true;
-    if (document.getElementById("paymentOption").value == "card") {
-        if (cardNumber.value == "") {
+    if (document.getElementById("paymentOption").value === "card") {
+        if (!cardNumber.value) {
             alert("Du måste fylla i ett kortnummer")
             valid = false;
         }
@@ -247,19 +243,19 @@ function checkCard() {
             valid = false;
         }
 
-        if (cardHolder.value === "") {
+        if (!cardHolder.value) {
             alert("Du måste fylla i kortinnehavarens namn")
             valid = false;
         }
-        if (cardExpire.value == "") {
+        if (!cardExpire.value) {
             alert("Du måste fylla i förfallodatum")
             valid = false;
         }
-        if (cardCVC.value == "") {
+        if (!cardCVC.value) {
             alert("Du måste fylla i CVC")
             valid = false;
         }
-        else if (cardCVC.value.length != 3) {
+        else if (cardCVC.value.length !== 3) {
             alert("Du har fyllt i ett för kort CVC nummer")
             valid = false;
         }
